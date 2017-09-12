@@ -1,5 +1,4 @@
-# ITAIS`
-IT Assets Inventory System
+# IT Assets Inventory System (ITAIS)
 
 ITAIS is an application intended for .....
 
