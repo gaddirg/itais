@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="layouts/fragments :: head-all"></head>
+
+<body>
+
+	<div th:replace="layouts/navigation :: nav-private"></div>
+
+	<!-- Page Content -->
+    <div class="container">
+		<div class="col-lg-12">
+				<h2 class="page-header">
+				
+				Inventory <a href="/inventory/create" class="btn btn-primary pull-right"
+					role="button"><span class="glyphicon glyphicon-pencil" /> Add</a>
+				</h2>
+
+				<div class="well well-lg">
+
+					<table class="table table-responsive " id="customTable">
+						<thead>
+							<tr>
+								<th style="text-align: right">Ascending|Descending Order</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="inventory : ${inventories}">
+								<tr>
+									<td> 
+										<div class="panel panel-body panel-default no-margin">
+											<a class="link-title" th:href="|@{/inventory/read/}${inventory.id}|">
+											<h4 th:text="${inventory.name}" /></a>
+											<hr class="faded"/>
+											<p>Office: <span th:text="${inventory.office.name}" /> </p>
+											<p>Serial Number: <span th:text="${inventory.serialNumber}" /> </p>
+											<p>Type: <span th:text="${inventory.type}" /> </p>
+											<hr />
+											<div>
+												<a th:href="|@{/inventory/read/}${inventory.id}|"
+													class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"/> View</a> 
+												<a th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
+													OR ${#authentication.getPrincipal().getUser().getOffice().getName()} == ${inventory.office.name})"
+													th:href="|@{/inventory/edit/}${inventory.id}|"
+													class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit" /> Edit</a> 
+												<a th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
+													OR ${#authentication.getPrincipal().getUser().getOffice().getName()} == ${inventory.office.name})"
+													th:href="|@{/inventory/delete/}${inventory.id}|"
+													class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash" /> Delete</a> 
+											</div>
+										</div>
+									</td>
+
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+					
+
+					<p th:if="${inventories.size() == 0}">
+						<div class="alert alert-warning" role="alert">No records found.</div>
+					</p>
+		
+			</div>
+			
+		</div>		
+	</div>
+	
+	<div th:replace="layouts/fragments :: bodybottom-scripts-min"></div>
+	<footer th:replace="layouts/fragments :: footer"></footer>
+	<div th:replace="layouts/datatable :: data-table"></div>
+
+</body>
+</html>
