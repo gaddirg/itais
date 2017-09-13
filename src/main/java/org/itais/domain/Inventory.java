@@ -26,20 +26,58 @@ public class Inventory
 {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    
     private long id;
-    
-    @Column (nullable= false, unique = true)
-    private String serialNumber;
-    
+
     @Basic(optional = false)
     @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
+ 
+    @Column (nullable= false, unique = true)
+    private String name;   
+    
+    @Column (nullable= false, unique = true)
+    private String serialNumber;
     
     @Column (nullable= false,columnDefinition = "TEXT")
-    private String name;
+    private String manufacturer;
+
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private String model;
     
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private String osName;
+    
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private String osVersion;
+    
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private String osServicePack;
+    
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private long memory;
+    
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private String hdd;
+    
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private String processorName;
+    
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private long processorCount;
+    
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private Date acquisitionDate;
+    
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private double acquisitionCost;
+    
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private String warrantyProvider;
+    
+    @Column (nullable= false,columnDefinition = "TEXT")
+    private Date warrantyExpirationDate;
+     
     @ManyToOne()
     @JoinColumn(name="office_id", nullable = false)
     private Office office;
@@ -47,71 +85,153 @@ public class Inventory
     @ManyToOne()
     @JoinColumn(name="assetType_id", nullable = true)
     private AssetType assetType;
-    
-    public Inventory()
-    {
-    }
 
-	public Inventory(String serialNumber, String name, AssetType assetType, Office office)
-    {
-	super();
-	this.serialNumber = serialNumber;
-	this.name = name;
-	this.assetType = assetType;
-	this.office = office;
-    }
+  
+    public long getId() {
+		return id;
+	}
 
-    public long getId()
-    {
-        return id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setId(long id)
-    {
-        this.id = id;
-   }
-    
-    public Date getCreatedOn()
-    {
-        return createdOn;
-    }
+	public Date getCreatedOn() {
+		return createdOn;
+	}
 
-    public void setCreatedOn(Date createdOn)
-    {
-        this.createdOn = createdOn;
-    }
-    
-    public String getSerialNumber()
-    {
-        return serialNumber;
-    }
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
 
-    public void setSerialNumber(String serialNumber)
-    {
-        this.serialNumber = serialNumber;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getName()
-    {
-        return name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+	public String getSerialNumber() {
+		return serialNumber;
+	}
 
-    public Office getOffice()
-    {
-        return office;
-    }
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
 
-    public void setOffice(Office office)
-    {
-        this.office = office;
-    }
-    
-    public AssetType getAssetType() {
+	public String getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getOsName() {
+		return osName;
+	}
+
+	public void setOsName(String osName) {
+		this.osName = osName;
+	}
+
+	public String getOsVersion() {
+		return osVersion;
+	}
+
+	public void setOsVersion(String osVersion) {
+		this.osVersion = osVersion;
+	}
+
+	public String getOsServicePack() {
+		return osServicePack;
+	}
+
+	public void setOsServicePack(String osServicePack) {
+		this.osServicePack = osServicePack;
+	}
+
+	public long getMemory() {
+		return memory;
+	}
+
+	public void setMemory(long memory) {
+		this.memory = memory;
+	}
+
+	public String getHdd() {
+		return hdd;
+	}
+
+	public void setHdd(String hdd) {
+		this.hdd = hdd;
+	}
+
+	public String getProcessorName() {
+		return processorName;
+	}
+
+	public void setProcessorName(String processorName) {
+		this.processorName = processorName;
+	}
+
+	public long getProcessorCount() {
+		return processorCount;
+	}
+
+	public void setProcessorCount(long processorCount) {
+		this.processorCount = processorCount;
+	}
+
+	public Date getAcquisitionDate() {
+		return acquisitionDate;
+	}
+
+	public void setAcquisitionDate(Date acquisitionDate) {
+		this.acquisitionDate = acquisitionDate;
+	}
+
+	public double getAcquisitionCost() {
+		return acquisitionCost;
+	}
+
+	public void setAcquisitionCost(double acquisitionCost) {
+		this.acquisitionCost = acquisitionCost;
+	}
+
+	public String getWarrantyProvider() {
+		return warrantyProvider;
+	}
+
+	public void setWarrantyProvider(String warrantyProvider) {
+		this.warrantyProvider = warrantyProvider;
+	}
+
+	public Date getWarrantyExpirationDate() {
+		return warrantyExpirationDate;
+	}
+
+	public void setWarrantyExpirationDate(Date warrantyExpirationDate) {
+		this.warrantyExpirationDate = warrantyExpirationDate;
+	}
+
+	public Office getOffice() {
+		return office;
+	}
+
+	public void setOffice(Office office) {
+		this.office = office;
+	}
+
+	public AssetType getAssetType() {
 		return assetType;
 	}
 
@@ -119,4 +239,34 @@ public class Inventory
 		this.assetType = assetType;
 	}
 
+	public Inventory()
+    {
+    }
+
+	public Inventory(String name, String serialNumber, String manufacturer, String model,
+			String osName, String osVersion, String osServicePack, long memory, String hdd, String processorName,
+			long processorCount, Date acquisitionDate, double acquisitionCost, String warrantyProvider, 
+			Date warrantyExpirationDate, Office office, AssetType assetType) {
+		super();
+		this.name = name;
+		this.serialNumber = serialNumber;
+		this.manufacturer = manufacturer;
+		this.model = model;
+		this.osName = osName;
+		this.osVersion = osVersion;
+		this.osServicePack = osServicePack;
+		this.memory = memory;
+		this.hdd = hdd;
+		this.processorName = processorName;
+		this.processorCount = processorCount;
+		this.acquisitionDate = acquisitionDate;
+		this.acquisitionCost = acquisitionCost;
+		this.warrantyProvider = warrantyProvider;
+		this.warrantyExpirationDate = warrantyExpirationDate;
+		this.office = office;
+		this.assetType = assetType;
+	}
+
+	
+	
 }

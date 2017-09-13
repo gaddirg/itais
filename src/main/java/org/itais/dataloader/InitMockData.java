@@ -1,7 +1,10 @@
 package org.itais.dataloader;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 
 import org.itais.domain.AssetType;
@@ -23,41 +26,57 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class InitMockData
 {
-  
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private OfficeRepository officeRepository;
-    private InventoryRepository inventoryRepository;
-    private AssetTypeRepository assetTypeRepository;
-    
 
-    public InitMockData(RoleRepository rRepository, UserRepository uRepository, 
-    		OfficeRepository oRepository, InventoryRepository iRepository, AssetTypeRepository aRepository)
-    {
+	private UserRepository userRepository;
+	private RoleRepository roleRepository;
+	private OfficeRepository officeRepository;
+	private InventoryRepository inventoryRepository;
+	private AssetTypeRepository assetTypeRepository;
+
+
+	public InitMockData(RoleRepository rRepository, UserRepository uRepository, 
+			OfficeRepository oRepository, InventoryRepository iRepository, AssetTypeRepository aRepository)
+	{
 		this.roleRepository = rRepository;
 		this.userRepository = uRepository;
 		this.officeRepository = oRepository;
 		this.inventoryRepository = iRepository;
 		this.assetTypeRepository = aRepository;
-    }
+	}
 
 
-    public void initData()
-    {
-	final Office office1 = new Office("Head Office","Manila","Head Office Description",userRepository.findByEmail("admin@company.org"),true);
-	officeRepository.save(office1);
-	final Office office2 = new Office("Region 1","Pangasinan","Office description",userRepository.findByEmail("admin@company.org"),true);
-	officeRepository.save(office2);
-	
-	final User user2 = new User("r1_user@company.org","r1","Mark","Gomez",officeRepository.findByName("Head Office"),Arrays.asList(roleRepository.findByName("ROLE_USER")));
-	userRepository.save(user2);
-	final User user3 = new User("r2_user@company.org","r2","Katy","Jones",officeRepository.findByName("Region 1"),Arrays.asList(roleRepository.findByName("ROLE_USER")));
-	userRepository.save(user3);
+	public void initData()
+	{
+		final Office office1 = new Office("Head Office","Manila","Head Office Description",userRepository.findByEmail("admin@company.org"),true);
+		officeRepository.save(office1);
+		final Office office2 = new Office("Region 1","Pangasinan","Office description",userRepository.findByEmail("admin@company.org"),true);
+		officeRepository.save(office2);
 
-	final Inventory inventory1 = new Inventory("sn0001","Server 1", assetTypeRepository.findByType("Server"), officeRepository.findById((long) 1));
-	inventoryRepository.save(inventory1);
-	final Inventory inventory2 = new Inventory("sn0002","Server 2",assetTypeRepository.findByType("Virtual Machine"),officeRepository.findById((long) 2));;
-	inventoryRepository.save(inventory2);
-    }
-    
+		final User user2 = new User("r1_user@company.org","r1","Mark","Gomez",officeRepository.findByName("Head Office"),Arrays.asList(roleRepository.findByName("ROLE_USER")));
+		userRepository.save(user2);
+		final User user3 = new User("r2_user@company.org","r2","Katy","Jones",officeRepository.findByName("Region 1"),Arrays.asList(roleRepository.findByName("ROLE_USER")));
+		userRepository.save(user3);
+
+		String sDate1="31/12/1998";  
+		Date date1;
+		try {
+			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
+
+
+			final Inventory inventory1 = new Inventory("DomainController01", "SN03929382", "HP", "model123456",
+					"Windows Server 2012 R2", "6.2", "Service Pack 1", 10240, "C: 50000", "Intel(R) Core(TM) i5-4200U CPU @ 1.60GHz",
+					1, date1, 5000.00, "HP", date1, officeRepository.findById((long) 1), assetTypeRepository.findByType("Server"));
+			inventoryRepository.save(inventory1);
+			final Inventory inventory2 = new Inventory("Database01", "SN083827373", "Dell", "mode985857848",
+					"Windows Server 2008 R2", "10", "Service Pack 3", 20240, "C: 100000; E: 80000", "Intel(R) Core(TM) i7-4200U CPU @ 2.00GHz",
+					2, date1, 80230.00, "Dell", date1, officeRepository.findById((long) 2), assetTypeRepository.findByType("Virtual Machine"));
+			inventoryRepository.save(inventory2);
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+
+	}
+
 }
