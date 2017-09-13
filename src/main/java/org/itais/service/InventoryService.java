@@ -43,7 +43,7 @@ public class InventoryService
 			inventoryDetails.setSerialNumber(inventory.getSerialNumber());
 			inventoryDetails.setCreatedOn(tempInventory.getCreatedOn());
 			inventoryDetails.setAssetType(inventory.getAssetType());
-			inventoryDetails.setOffice(tempInventory.getOffice());
+			inventoryDetails.setOffice(inventory.getOffice());
 			return inventoryRepository.save(inventoryDetails);
 		}
 	}
