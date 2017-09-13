@@ -47,11 +47,16 @@ public class InitMockData
 
 	public void initData()
 	{
-		final Office office1 = new Office("Head Office","Manila","Head Office Description",userRepository.findByEmail("admin@company.org"),true);
+		final Office office1 = new Office("Head Office","Bourke Street, Melbourne, VIC 3032","Head Office Description",userRepository.findByEmail("admin@company.org"),true);
 		officeRepository.save(office1);
-		final Office office2 = new Office("Region 1","Pangasinan","Office description",userRepository.findByEmail("admin@company.org"),true);
+		final Office office2 = new Office("Sydney Branch","Balfour St, Chippendale NSW 2008","Sydney Branch Office description",userRepository.findByEmail("admin@company.org"),true);
 		officeRepository.save(office2);
-
+		final Office office3 = new Office("Canberra Branch","Bunda St, Canberra ACT 2601","Canberra Branch Office description",userRepository.findByEmail("admin@company.org"),true);
+		officeRepository.save(office3);
+		final Office office4 = new Office("Perth Branch","Victoria Square, Perth WA 6000","Perth Branch Office description",userRepository.findByEmail("admin@company.org"),true);
+		officeRepository.save(office4);		
+		
+		
 		final User user2 = new User("r1_user@company.org","r1","Mark","Gomez",officeRepository.findByName("Head Office"),Arrays.asList(roleRepository.findByName("ROLE_USER")));
 		userRepository.save(user2);
 		final User user3 = new User("r2_user@company.org","r2","Katy","Jones",officeRepository.findByName("Region 1"),Arrays.asList(roleRepository.findByName("ROLE_USER")));

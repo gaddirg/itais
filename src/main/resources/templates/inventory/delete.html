@@ -34,7 +34,7 @@
 						<label class="col-sm-2 control-label">Date Created:</label>
 						<div class="col-md-10">
 							<p
-								th:text="${#calendars.format(inventories.createdOn,'dd/MM/yyyy hh:mm:ss a')}" />
+								th:text="${#calendars.format(inventories.createdOn,'dd MMMM yyyy')}" />
 						</div>
 					</div>
 
@@ -52,12 +52,103 @@
 						</div>
 					</div>
 
+					<div>
+						<label class="col-sm-2 control-label">Manufacturer:</label>
+						<div class="col-md-10">
+							<p th:text="${inventories.manufacturer}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">Model:</label>
+						<div class="col-md-10">
+							<p th:text="${inventories.model}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">OS Name:</label>
+						<div class="col-md-10">
+							<p th:text="${inventories.osName}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">OS Version:</label>
+						<div class="col-md-10">
+							<p th:text="${inventories.osVersion}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">OS Service Pack:</label>
+						<div class="col-md-10">
+							<p th:text="${inventories.osServicePack}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">Memory (MB):</label>
+						<div class="col-md-10">
+							<p th:text="${#numbers.formatInteger(inventories.memory,1,'COMMA')}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">Disk Drive:</label>
+						<div class="col-md-10">
+							<p th:text="${inventories.hdd}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">Processor Name:</label>
+						<div class="col-md-10">
+							<p th:text="${inventories.processorName}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">Processor Count:</label>
+						<div class="col-md-10">
+							<p th:text="${inventories.processorCount}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">Acquisition Date:</label>
+						<div class="col-md-10">
+							<p th:text="${#calendars.format(inventories.acquisitionDate,'dd MMMM yyyy')}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">Acquisition Cost:</label>
+						<div class="col-md-10">
+							<p th:text="${#numbers.formatDecimal(inventories.acquisitionCost,1,'COMMA',2,'POINT')}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">Warranty Provider:</label>
+						<div class="col-md-10">
+							<p th:text="${inventories.warrantyProvider}" />
+						</div>
+					</div>
+					
+					<div>
+						<label class="col-sm-2 control-label">Warranty Expiration:</label>
+						<div class="col-md-10">
+							<p th:text="${#calendars.format(inventories.warrantyExpirationDate,'dd MMMM yyyy')}" />
+						</div>
+					</div>
+					
 				</div>
 			</div>
 
 			<div class="col-sm-6">
 				<div class="alert alert-danger">
-					<strong>Warning!</strong> You are about to delete this Call For Proposals. Continue with the deletion?
+					<strong>Warning!</strong> You are about to delete this record. Continue with the deletion?
 				</div>
 				<a th:href="|@{/inventory/deleteconfirmed/}${inventories.id}|" class="btn btn-default"><span class="glyphicon glyphicon-ok"/> Confirm</a>
 				<a onClick="history.go(-1);return true;" class="btn btn-default"><span class="glyphicon glyphicon-remove"/> Cancel</a>

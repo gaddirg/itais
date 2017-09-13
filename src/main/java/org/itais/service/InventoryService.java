@@ -39,9 +39,22 @@ public class InventoryService
 		{
 			Inventory inventoryDetails = new Inventory();
 			inventoryDetails.setId(inventory.getId());
+			inventoryDetails.setCreatedOn(tempInventory.getCreatedOn());
 			inventoryDetails.setName(inventory.getName());
 			inventoryDetails.setSerialNumber(inventory.getSerialNumber());
-			inventoryDetails.setCreatedOn(tempInventory.getCreatedOn());
+			inventoryDetails.setManufacturer(inventory.getManufacturer());
+			inventoryDetails.setModel(inventory.getModel());
+			inventoryDetails.setOsName(inventory.getOsName());
+			inventoryDetails.setOsVersion(inventory.getOsVersion());
+			inventoryDetails.setOsServicePack(inventory.getOsServicePack());
+			inventoryDetails.setMemory(inventory.getMemory());
+			inventoryDetails.setHdd(inventory.getHdd());
+			inventoryDetails.setProcessorName(inventory.getProcessorName());
+			inventoryDetails.setProcessorCount(inventory.getProcessorCount());
+			inventoryDetails.setAcquisitionDate(inventory.getAcquisitionDate());
+			inventoryDetails.setAcquisitionCost(inventory.getAcquisitionCost());
+			inventoryDetails.setWarrantyProvider(inventory.getWarrantyProvider());
+			inventoryDetails.setWarrantyExpirationDate(inventory.getWarrantyExpirationDate());
 			inventoryDetails.setAssetType(inventory.getAssetType());
 			inventoryDetails.setOffice(inventory.getOffice());
 			return inventoryRepository.save(inventoryDetails);
