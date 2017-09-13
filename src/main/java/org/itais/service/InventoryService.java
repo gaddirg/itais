@@ -42,7 +42,7 @@ public class InventoryService
 			inventoryDetails.setName(inventory.getName());
 			inventoryDetails.setSerialNumber(inventory.getSerialNumber());
 			inventoryDetails.setCreatedOn(tempInventory.getCreatedOn());
-			inventoryDetails.setType(inventory.getType());
+			inventoryDetails.setAssetType(inventory.getAssetType());
 			inventoryDetails.setOffice(tempInventory.getOffice());
 			return inventoryRepository.save(inventoryDetails);
 		}

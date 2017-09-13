@@ -22,21 +22,13 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table (name = "inventory")
-
-/**
- * 
- *This is domain class for Call For Proposals defining 
- *objects used in project database and there relation with different objects
- */
 public class Inventory
 {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     
-    // defines CFP Id variable of long type generated automatically 
     private long id;
     
-    // Defines CFP serialNumber variable of string type stored in unique table column with default type
     @Column (nullable= false, unique = true)
     private String serialNumber;
     
@@ -48,34 +40,27 @@ public class Inventory
     @Column (nullable= false,columnDefinition = "TEXT")
     private String name;
     
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private String type;
-    
-    // joining repo_id for table repo with many to one relationship
     @ManyToOne()
     @JoinColumn(name="office_id", nullable = false)
     private Office office;
-    
-    @OneToMany(mappedBy="inventory", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
-    private Set<Proposal> proposals = new HashSet<Proposal>();
 
-   
+    @ManyToOne()
+    @JoinColumn(name="assetType_id", nullable = true)
+    private AssetType assetType;
+    
     public Inventory()
     {
-	
     }
 
-    public Inventory(String serialNumber, String name, String type, Office office)
+	public Inventory(String serialNumber, String name, AssetType assetType, Office office)
     {
 	super();
 	this.serialNumber = serialNumber;
 	this.name = name;
-	this.type = type;
+	this.assetType = assetType;
 	this.office = office;
     }
-/**
- * @return value of Id object immediately of long  data type
- */
+
     public long getId()
     {
         return id;
@@ -85,9 +70,7 @@ public class Inventory
     {
         this.id = id;
    }
-/**
- * @return value of createdOn object immediately of Date type
- */
+    
     public Date getCreatedOn()
     {
         return createdOn;
@@ -98,9 +81,6 @@ public class Inventory
         this.createdOn = createdOn;
     }
     
-    /**
-     * @return the serialNumber object immediately of String data type 
-     */
     public String getSerialNumber()
     {
         return serialNumber;
@@ -111,10 +91,6 @@ public class Inventory
         this.serialNumber = serialNumber;
     }
 
-    /**
-     * 
-     * @return the name object immediately of String data type
-     */
     public String getName()
     {
         return name;
@@ -125,24 +101,6 @@ public class Inventory
         this.name = name;
     }
 
-    /**
-     * 
-     * @return the type object immediately of String data type
-     */
-    
-    public String getType()
-    {
-        return type;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
-    }
-
-    /**
-     * @return the Repo object immediately of Repo data type
-     */
     public Office getOffice()
     {
         return office;
@@ -152,24 +110,13 @@ public class Inventory
     {
         this.office = office;
     }
-/**
- * 
- * @return the Proposals in the form of proposal set
- */
-    public Set<Proposal> getProposals()
-    {
-        return proposals;
-    }
-
-/**
- * 
- * @param proposals store the set of proposals in proposal object
- */
     
-    public void setProposals(Set<Proposal> proposals)
-    {
-        this.proposals = proposals;
-    }
+    public AssetType getAssetType() {
+		return assetType;
+	}
 
-    
+	public void setAssetType(AssetType assetType) {
+		this.assetType = assetType;
+	}
+
 }

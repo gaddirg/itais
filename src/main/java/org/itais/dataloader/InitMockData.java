@@ -28,15 +28,17 @@ public class InitMockData
     private RoleRepository roleRepository;
     private OfficeRepository officeRepository;
     private InventoryRepository inventoryRepository;
+    private AssetTypeRepository assetTypeRepository;
     
 
     public InitMockData(RoleRepository rRepository, UserRepository uRepository, 
-    		OfficeRepository oRepository, InventoryRepository iRepository)
+    		OfficeRepository oRepository, InventoryRepository iRepository, AssetTypeRepository aRepository)
     {
 		this.roleRepository = rRepository;
 		this.userRepository = uRepository;
 		this.officeRepository = oRepository;
 		this.inventoryRepository = iRepository;
+		this.assetTypeRepository = aRepository;
     }
 
 
@@ -52,9 +54,9 @@ public class InitMockData
 	final User user3 = new User("r2_user@company.org","r2","Katy","Jones",officeRepository.findByName("Region 1"),Arrays.asList(roleRepository.findByName("ROLE_USER")));
 	userRepository.save(user3);
 
-	final Inventory inventory1 = new Inventory("sn0001","Server 1","Windows Server",officeRepository.findById((long) 1));
+	final Inventory inventory1 = new Inventory("sn0001","Server 1", assetTypeRepository.findByType("Server"), officeRepository.findById((long) 1));
 	inventoryRepository.save(inventory1);
-	final Inventory inventory2 = new Inventory("sn0002","Server 2","Linux Server",officeRepository.findById((long) 2));;
+	final Inventory inventory2 = new Inventory("sn0002","Server 2",assetTypeRepository.findByType("Virtual Machine"),officeRepository.findById((long) 2));;
 	inventoryRepository.save(inventory2);
     }
     

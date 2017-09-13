@@ -26,7 +26,7 @@
 
 					<input type="hidden" th:field="*{id}" />
 					<div class="form-group">
-						<label class="col-sm-2 control-label" id="label-create">Select
+						<label class="col-sm-2 control-label" id="label-create">
 							Office Branch:</label>
   					<div class="col-md-10">
 							<select class="selectpicker" data-live-search="true" th:field="*{office}">
@@ -48,12 +48,15 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" id="label-create">Type:</label>
-						<div class="col-md-10">
-							<textarea class="form-control" rows="5" th:field="*{type}" required="true" />
+						<label class="col-sm-2 control-label" id="label-create">
+							Asset Type:</label>
+  					<div class="col-md-10">
+							<select class="selectpicker" data-live-search="true" th:field="*{assetType}">
+								<option th:each="t: ${assetTypes}" th:value="${t.id}"
+									th:text="${t.type}" />
+							</select>
 						</div>
 					</div>
-
 
 				</div>
 

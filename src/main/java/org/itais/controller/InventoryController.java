@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.itais.domain.Inventory;
 import org.itais.domain.Office;
 import org.itais.domain.User;
+import org.itais.service.AssetTypeService;
 import org.itais.service.InventoryService;
 import org.itais.service.OfficeService;
 import org.itais.service.UserDetailsImpl;
@@ -43,157 +44,173 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class InventoryController
 {
 
-    private OfficeService officeService;
-    private UserService userService;
-    private InventoryService inventoryService;
+	private OfficeService officeService;
+	private UserService userService;
+	private InventoryService inventoryService;
+	private AssetTypeService assetTypeService;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
 
-    @Autowired
-    public void configureAuth(AuthenticationManagerBuilder auth) throws Exception
-    {
-	auth.userDetailsService(userDetailsService);
-    }
-    
-    @Autowired
-    public InventoryController(OfficeService officeService, UserService userService,
-	    InventoryService inventoryService)
-    {
-	super();
-	this.officeService = officeService;
-	this.userService = userService;
-	this.inventoryService = inventoryService;
-    }
+	@Autowired
+	private UserDetailsService userDetailsService;
 
-    
-    /**
-     * @param 
-     * @param 
-     * @return 
-     */    
-    @RequestMapping("/inventory/create")
-    public String InventoryCreate(HttpServletRequest request, Model model)
-    {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	
-	if (request.isUserInRole("ROLE_ADMIN"))	     
+	@Autowired
+	public void configureAuth(AuthenticationManagerBuilder auth) throws Exception
 	{
-		model.addAttribute("offices", officeService.listForSA());
+		auth.userDetailsService(userDetailsService);
 	}
-	else
+
+	@Autowired
+	public InventoryController(OfficeService officeService, UserService userService,
+			InventoryService inventoryService, AssetTypeService assetTypeService)
 	{
-		model.addAttribute("offices", userService.findByEmail(auth.getName()).getOffice());
+		super();
+		this.officeService = officeService;
+		this.userService = userService;
+		this.inventoryService = inventoryService;
+		this.assetTypeService = assetTypeService;
 	}
-	model.addAttribute("inventories", new Inventory());
-	return "inventory/create";
-    }
-
-    
-    /**
-     * @param 
-     * @param 
-     * @return 
-     */    
-    @RequestMapping("/inventory/create/{id}")
-    public String InventoryCreateWithPreselectedOffice(Model model,@PathVariable Long id)
-    {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	model.addAttribute("offices", Arrays.asList(officeService.findById(id)));
-	model.addAttribute("inventories", new Inventory());
-	return "inventory/create";
-    }
-    
-    
-    /**
-     * @param 
-     * @param 
-     * @return 
-     */    
-    @RequestMapping(value = "/inventory/create", method = RequestMethod.POST)
-    public String InventorySave(@ModelAttribute Inventory inventory)
-    {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	Inventory savedCallForProposals = inventoryService.save(inventory);
-
-	return "redirect:read/" + savedCallForProposals.getId();
-    }
-
-    
-    /**
-     * @param 
-     * @param 
-     * @return 
-     */
-    @RequestMapping("/inventory/edit/{id}")
-    public String InventoryEdit(@PathVariable Long id, Model model)
-    {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	model.addAttribute("offices", Arrays.asList((inventoryService.findById(id)).getOffice()));
-	model.addAttribute("inventories", inventoryService.findById(id));
-	return "inventory/create";
-    }
-
-    
-    /**
-     * @param 
-     * @param 
-     * @return 
-     */
-    @RequestMapping("/inventory/read/{id}")
-    public String InventoryRead(@PathVariable Long id, Model model)
-    {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	model.addAttribute("inventories", inventoryService.findById(id));
-	return "inventory/read";
-    }
 
 
-    /**
-     * @param 
-     * @param 
-     * @return 
-     */
-    @RequestMapping("/inventory/main")
-    public String InventoryMain(HttpServletRequest request, Model model)
-    {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();	
-	if (request.isUserInRole("ROLE_ADMIN"))	     
+	/**
+	 * @param 
+	 * @param 
+	 * @return 
+	 */    
+	@RequestMapping("/inventory/create")
+	public String InventoryCreate(HttpServletRequest request, Model model)
 	{
-		model.addAttribute("inventories", inventoryService.list());
-	}
-	else
-	{
-		model.addAttribute("inventories", userService.findByEmail(auth.getName()).getOffice().getInventories());
-	}
-  
-	return "inventory/main";
-    }
-    
-    
-    /**
-     * @param 
-     * @param 
-     * @return 
-     */
-    @RequestMapping("/inventory/delete/{id}")
-    public String InventoryDelete(@PathVariable Long id, Model model)
-    {
-	model.addAttribute("inventories", inventoryService.findById(id));
-	return "inventory/delete";
-    }
-    
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-    /**
-     * @param 
-     * @param 
-     * @return 
-     */    
-    @RequestMapping("/inventory/deleteconfirmed/{id}")
-    public RedirectView InventoryDeleteConfirmed(@PathVariable Long id, Model model)
-    {
-	inventoryService.delete(id);
-	 return new RedirectView("/inventory/main");
-    }
-   
+		if (request.isUserInRole("ROLE_ADMIN"))	     
+		{
+			model.addAttribute("offices", officeService.listForSA());
+		}
+		else
+		{
+			model.addAttribute("offices", userService.findByEmail(auth.getName()).getOffice());
+		}
+		model.addAttribute("assetTypes", assetTypeService.list());
+		model.addAttribute("inventories", new Inventory());
+		return "inventory/create";
+	}
+
+
+	/**
+	 * @param 
+	 * @param 
+	 * @return 
+	 */    
+	@RequestMapping("/inventory/create/{id}")
+	public String InventoryCreateWithPreselectedOffice(Model model,@PathVariable Long id)
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("offices", Arrays.asList(officeService.findById(id)));
+		model.addAttribute("assetTypes", Arrays.asList(assetTypeService.findById(id)));
+		model.addAttribute("inventories", new Inventory());
+		return "inventory/create";
+	}
+
+
+	/**
+	 * @param 
+	 * @param 
+	 * @return 
+	 */    
+	@RequestMapping(value = "/inventory/create", method = RequestMethod.POST)
+	public String InventorySave(@ModelAttribute Inventory inventory)
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Inventory savedCallForProposals = inventoryService.save(inventory);
+
+		return "redirect:read/" + savedCallForProposals.getId();
+	}
+
+
+	/**
+	 * @param 
+	 * @param 
+	 * @return 
+	 */
+	@RequestMapping("/inventory/edit/{id}")
+	public String InventoryEdit(@PathVariable Long id, Model model, HttpServletRequest request)
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		model.addAttribute("assetTypes", assetTypeService.list());
+		model.addAttribute("inventories", inventoryService.findById(id));
+
+		if (request.isUserInRole("ROLE_ADMIN"))	     
+		{
+			model.addAttribute("offices", officeService.listForSA());	
+		}
+		else
+		{
+			model.addAttribute("offices", Arrays.asList((inventoryService.findById(id)).getOffice()));	
+		}
+
+		return "inventory/create";
+	}
+
+
+	/**
+	 * @param 
+	 * @param 
+	 * @return 
+	 */
+	@RequestMapping("/inventory/read/{id}")
+	public String InventoryRead(@PathVariable Long id, Model model)
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("inventories", inventoryService.findById(id));
+		return "inventory/read";
+	}
+
+
+	/**
+	 * @param 
+	 * @param 
+	 * @return 
+	 */
+	@RequestMapping("/inventory/main")
+	public String InventoryMain(HttpServletRequest request, Model model)
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();	
+		if (request.isUserInRole("ROLE_ADMIN"))	     
+		{
+			model.addAttribute("inventories", inventoryService.list());
+		}
+		else
+		{
+			model.addAttribute("inventories", userService.findByEmail(auth.getName()).getOffice().getInventories());
+		}
+
+		return "inventory/main";
+	}
+
+
+	/**
+	 * @param 
+	 * @param 
+	 * @return 
+	 */
+	@RequestMapping("/inventory/delete/{id}")
+	public String InventoryDelete(@PathVariable Long id, Model model)
+	{
+		model.addAttribute("inventories", inventoryService.findById(id));
+		return "inventory/delete";
+	}
+
+
+	/**
+	 * @param 
+	 * @param 
+	 * @return 
+	 */    
+	@RequestMapping("/inventory/deleteconfirmed/{id}")
+	public RedirectView InventoryDeleteConfirmed(@PathVariable Long id, Model model)
+	{
+		inventoryService.delete(id);
+		return new RedirectView("/inventory/main");
+	}
+
 }

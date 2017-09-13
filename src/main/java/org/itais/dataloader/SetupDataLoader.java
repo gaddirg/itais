@@ -64,7 +64,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	createAssetTypeIfNotFound("Virtual Machine");
 	createAssetTypeIfNotFound("Desktop");
 	
-	InitMockData initMockData = new InitMockData(roleRepository, userRepository, officeRepository, inventoryRepository);
+	InitMockData initMockData = new InitMockData(roleRepository, userRepository, officeRepository, inventoryRepository, assetTypeRepository);
 	
 	initMockData.initData();
 

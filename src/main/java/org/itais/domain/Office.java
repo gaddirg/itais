@@ -90,7 +90,6 @@ public class Office
 	this.description = description;
 	this.creator = creator;
 	this.status = status;
-	this.inventories = inventories;
     }
 
     /**

@@ -34,7 +34,7 @@
 											<hr class="faded"/>
 											<p>Office: <span th:text="${inventory.office.name}" /> </p>
 											<p>Serial Number: <span th:text="${inventory.serialNumber}" /> </p>
-											<p>Type: <span th:text="${inventory.type}" /> </p>
+											<p>Type: <span th:text="${inventory.assetType.type}" /> </p>
 											<hr />
 											<div>
 												<a th:href="|@{/inventory/read/}${inventory.id}|"

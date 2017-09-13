@@ -1,10 +1,18 @@
 package org.itais.domain;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -17,8 +25,19 @@ public class AssetType
     private long id;
     
     private String type;
-
+   
+    @OneToMany(mappedBy="assetType", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private Set<Inventory> inventories = new HashSet<Inventory>();
     
+    public Set<Inventory> getInventories() {
+		return inventories;
+	}
+
+	public void setInventories(Set<Inventory> inventories) {
+		this.inventories = inventories;
+	}
+
+
     public AssetType()
     {
 	super();
