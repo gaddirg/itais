@@ -24,16 +24,9 @@
 				<div class="panel-body">
 
 					<div>
-						<label class="col-sm-2 control-label">Serial Number:</label>
+						<label class="col-sm-2 control-label">Office Branch: </label>
 						<div class="col-md-10">
-							<p th:text="${inventories.serialNumber}" />
-						</div>
-					</div>
-
-					<div>
-						<label class="col-sm-2 control-label">Type:</label>
-						<div class="col-md-10">
-							<p th:text="${inventories.assetType.type}" />
+							<p th:text="${inventories.office.name}" />
 						</div>
 					</div>
 
@@ -46,9 +39,16 @@
 					</div>
 
 					<div>
-						<label class="col-sm-2 control-label">Office Branch: </label>
+						<label class="col-sm-2 control-label">Serial Number:</label>
 						<div class="col-md-10">
-							<p th:text="${inventories.office.name}" />
+							<p th:text="${inventories.serialNumber}" />
+						</div>
+					</div>
+
+					<div>
+						<label class="col-sm-2 control-label">Type:</label>
+						<div class="col-md-10">
+							<p th:text="${inventories.assetType.type}" />
 						</div>
 					</div>
 

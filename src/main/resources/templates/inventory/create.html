@@ -44,12 +44,12 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" id="label-create">Name:</label>
 						<div class="col-md-10">
-							<textarea class="form-control" rows="5" th:field="*{name}" required="true" />
+							<input type="text" class="form-control" th:field="*{name}" required="true" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" id="label-create">
-							Asset Type:</label>
+							Type:</label>
   					<div class="col-md-10">
 							<select class="selectpicker" data-live-search="true" th:field="*{assetType}">
 								<option th:each="t: ${assetTypes}" th:value="${t.id}"
