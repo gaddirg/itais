@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<head th:replace="layouts/fragments :: head-all"></head>
+	<head th:replace="layouts/fragments :: head-min"></head>
+
+	<style>
+		/* DataTable */
+		table.dataTable th {
+	    text-align: center;
+	    }
+	</style>
 
 <body>
 
@@ -10,65 +17,103 @@
 	<!-- Page Content -->
     <div class="container">
 		<div class="col-lg-12">
-				<h2 class="page-header">
+
+
+
 				
+			<div class="panel panel-body panel-default no-margin">				
+				<h2 >
 				Inventory <a href="/inventory/create" class="btn btn-primary pull-right"
 					role="button"><span class="glyphicon glyphicon-pencil" /> Add</a>
-				</h2>
-
-				<div class="well well-lg">
-
-					<table class="table table-responsive " id="customTable">
+				</h2>				
+				
+	<hr />				
+					
+					<table class="table table-striped table-bordered" width="100%" cellspacing="0" id="tableInventory">
 						<thead>
 							<tr>
-								<th style="text-align: right">Ascending|Descending Order</th>
+								<th>Name</th>
+								<th>Office Branch</th>
+								<th>Serial Number</th>
+								<th>Manufacturer</th>
+								<th>Model</th>
+								<th>Operating System</th>
+								<th>Memory</th>
+								<th>Hard Disk</th>
+								<th>Processor</th>
+								<th>Acquisition Date</th>
+								<th>Acquisition Cost</th>
+								<th>Supplier</th>
+								<th>Warranty Expiration</th>
 							</tr>
 						</thead>
 						<tbody>
 							<th:block th:each="inventory : ${inventories}">
 								<tr>
 									<td> 
-										<div class="panel panel-body panel-default no-margin">
-											<a class="link-title" th:href="|@{/inventory/read/}${inventory.id}|">
-											<h4 th:text="${inventory.name}" /></a>
-											<hr class="faded"/>
-											<p>Office: <span th:text="${inventory.office.name}" /> </p>
-											<p>Serial Number: <span th:text="${inventory.serialNumber}" /> </p>
-											<p>Type: <span th:text="${inventory.assetType.type}" /> </p>
-											<hr />
-											<div>
-												<a th:href="|@{/inventory/read/}${inventory.id}|"
-													class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"/> View</a> 
-												<a th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
-													OR ${#authentication.getPrincipal().getUser().getOffice().getName()} == ${inventory.office.name})"
-													th:href="|@{/inventory/edit/}${inventory.id}|"
-													class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit" /> Edit</a> 
-												<a th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
-													OR ${#authentication.getPrincipal().getUser().getOffice().getName()} == ${inventory.office.name})"
-													th:href="|@{/inventory/delete/}${inventory.id}|"
-													class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash" /> Delete</a> 
-											</div>
-										</div>
+										<a class="link-title" th:href="|@{/inventory/read/}${inventory.id}|">
+										<span th:text="${inventory.name}" /></a>
 									</td>
-
+									<td th:text="${inventory.office.name}" />
+									<td th:text="${inventory.serialNumber}" />
+									<td th:text="${inventory.manufacturer}" />
+									<td th:text="${inventory.model}" />
+									<td th:text="${inventory.osName}" />
+									<td th:text="${inventory.memory}" />
+									<td th:text="${inventory.hdd}" />
+									<td th:text="${inventory.processorName}" />
+									<td th:text="${inventory.acquisitionDate}" />
+									<td th:text="${inventory.acquisitionCost}" />
+									<td th:text="${inventory.warrantyProvider}" />
+									<td th:text="${inventory.warrantyExpirationDate}" />
 								</tr>
 							</th:block>
 						</tbody>
 					</table>
-					
+					</div>
 
 					<p th:if="${inventories.size() == 0}">
 						<div class="alert alert-warning" role="alert">No records found.</div>
 					</p>
 		
-			</div>
+			
 			
 		</div>		
 	</div>
 	
 	<div th:replace="layouts/fragments :: bodybottom-scripts-min"></div>
 	<footer th:replace="layouts/fragments :: footer"></footer>
-	<div th:replace="layouts/datatable :: data-table"></div>
+	<script>
+	$(document).ready(function() {
+	    $('#tableInventory').DataTable( {
+	        "scrollX": true,
+	        dom: 'Bfrtip',
+	        buttons: [
+	            'print',
+	            'copyHtml5',
+	            {
+	                extend: 'excelHtml5',
+	                title: 'Inventory List'
+	            },
+	            {
+	                extend: 'csvHtml5',
+	                title: 'Inventory List'
+	            },
+	            {
+	                extend: 'pdfHtml5',
+	                orientation: 'landscape',
+	                pageSize: 'LEGAL',
+	                title: 'Inventory List'
+	            },
+	            'colvis'
+	        ]
+	    } );
+	    
+	    table.buttons().container()
+        .appendTo( '#example_wrapper .col-sm-6:eq(0)' );
+	    
+	} );
+	</script>
 
 </body>
 </html>

@@ -11,7 +11,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
-  padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+  padding-top: 60px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 footer {
   position: absolute;
@@ -44,41 +44,15 @@ footer {
 
 /* Banner */
 .jumbotron {
-  background-color: #E60000;
+  /* background-color: #E60000;
+background: #fe8c00;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #f83600, #fe8c00);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #f83600, #fe8c00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
   font-family: "Museo500", Arial;
   color: #fff;
   padding: 20px;
 } 
-
-
-/* Table with Round Borders */
-.table-round {
-   border-collapse: separate;
-   border: solid #ddd 1px;
-   border-radius: 6px;
-   border-left: 0px;
-   border-top: 0px;
-}
-.table-round > thead:first-child > tr:first-child > th {
-    border-bottom: 0px;
-    border-top: solid #ddd 1px;
-}
-.table-round td, .table-curved th {
-    border-left: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-}
-.table-round > :first-child > :first-child > :first-child {
-    border-top-left-radius: 6px;
-}
-.table-round > :first-child > :first-child > :last-child {
-    border-top-right-radius: 6px;
-}
-.table-round > :last-child > :last-child > :first-child {
-    border-bottom-left-radius: 6px;
-}
-.table-round > :last-child > :last-child > :last-child {
-    border-bottom-right-radius: 6px;
-}
 
 
 /* Badge colors */
@@ -110,32 +84,6 @@ hr.faded {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
 	}
 
-
-/* DataTable */
-table.dataTable {
-  width: 100%;
-  clear: both;
-  }
-  
-  table.dataTable thead td {
-    border-top: 0px ;
-    border-bottom: 0px ; 
-    margin: 0 !important;
-	padding: 0 !important;    
-    }
-    
-  table.dataTable tbody td {
-    border-top: 0px;
-    border-bottom: 0px;
-    margin: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    }
-
- .panel-body.no-margin {
-	padding: 10px !important;
-	margin: 0 !important;
-	}
 
 
 

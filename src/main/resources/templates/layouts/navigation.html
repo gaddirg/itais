@@ -8,7 +8,7 @@
  <body>
 
 	<div th:fragment="nav-private"> 
-		<nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+		<nav role="navigation" class="navbar navbar-default navbar-fixed-top">
 		  <div class="container">
 		
 		    <!-- Title -->
@@ -36,7 +36,7 @@
 						<div class="col-md-12">
 							<form sec:authorize="isAuthenticated()" id="frmlogout"
 								th:action="@{/logout}" method="post" class="form-inline">
-								<button class="btn btn-create btn-block" href="javascript:{}"
+								<button class="btn btn-primary btn-block" href="javascript:{}"
 									onclick="document.getElementById('frmlogout').submit(); return false;">
 									<span class="glyphicon glyphicon-log-out"/> Logout
 								</button>
