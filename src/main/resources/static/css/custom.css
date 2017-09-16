@@ -121,17 +121,14 @@ h1, h2, h3, h4 {
 
 /* Login Menu */
 .dropdown-toggle.nav-login {
-	color:#9d9d9d;
 	margin-top: 5px;
 }
 
 .dropdown-toggle.nav-login:hover {
-	color:#FFFFFF;
 	background-color:transparent;
 }
 
 .dropdown.open > .dropdown-toggle.nav-login {
-	color:#FFFFFF;
 	background-color:transparent;
 }
 

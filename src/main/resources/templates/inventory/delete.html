@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<head th:replace="layouts/fragments :: head-min"></head>
+	<head th:replace="layouts/fragments :: head-bootstrap-core"></head>
+	<head th:replace="layouts/fragments :: head-custom-css"></head>
 
 <body>
 
@@ -158,7 +159,7 @@
 		
 	</div>
 
-	<div th:replace="layouts/fragments :: bodybottom-scripts-min"></div>
+	<div th:replace="layouts/fragments :: script-bootstrap-core"></div>
 	<footer th:replace="layouts/fragments :: footer"></footer>
 
 </body>

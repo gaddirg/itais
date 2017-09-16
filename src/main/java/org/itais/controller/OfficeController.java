@@ -120,7 +120,6 @@ public class OfficeController
     * @param 
     * @return 
     */  
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping("/office/edit/{id}")
     public String repoEdit(@PathVariable Long id, Model model)
     {

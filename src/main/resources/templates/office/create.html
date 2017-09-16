@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layouts/fragments :: head-all"></head>
-
+<head th:replace="layouts/fragments :: head-bootstrap-core"></head>
+<head th:replace="layouts/fragments :: head-create"></head>
+<head th:replace="layouts/fragments :: head-custom-css"></head>
+	
 <body>
 
 	<div th:replace="layouts/navigation :: nav-private"></div>
@@ -80,8 +82,8 @@
 
 		</div>
 	</div>
-
-	<div th:replace="layouts/fragments :: bodybottom-scripts-min"></div>
+	
+	<div th:replace="layouts/fragments :: script-create"></div>
 	<footer th:replace="layouts/fragments :: footer"></footer>
 
 

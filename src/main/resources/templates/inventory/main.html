@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<head th:replace="layouts/fragments :: head-min"></head>
+	<head th:replace="layouts/fragments :: head-bootstrap-core"></head>
+	<head th:replace="layouts/fragments :: head-datatable"></head>
+	<head th:replace="layouts/fragments :: head-custom-css"></head>
 
 	<style>
 		/* DataTable */
@@ -81,7 +83,8 @@
 		</div>		
 	</div>
 	
-	<div th:replace="layouts/fragments :: bodybottom-scripts-min"></div>
+	<div th:replace="layouts/fragments :: script-datatable"></div>
+	
 	<footer th:replace="layouts/fragments :: footer"></footer>
 	<script>
 	$(document).ready(function() {
@@ -89,7 +92,7 @@
 	        "scrollX": true,
 	        dom: 'Bfrtip',
 	        buttons: [
-	            'print',
+	        	'print',
 	            'copyHtml5',
 	            {
 	                extend: 'excelHtml5',

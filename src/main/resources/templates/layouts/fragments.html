@@ -2,8 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
 
-	<head th:fragment="head-all">
-	
+
+	<head th:fragment="head-custom-css">
+		<link rel="stylesheet" href="css/custom.css" th:href="@{/css/custom.css}" />	
+	</head>
+
+	<head th:fragment="head-bootstrap-core">
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,57 +15,50 @@
 	  	<title>IT Assets Inventory System</title>
 		<link rel="stylesheet" href="external/bootstrap/css/bootstrap.min.css" 
 				th:href="@{/external/bootstrap/css/bootstrap.min.css}" />
+		<link rel="icon" type="image/x-icon" href="images/favicon.ico" th:href="@{/images/favicon.ico}"/>
+	</head>
 
+	<div th:fragment="script-bootstrap-core">
+		<script src="external/jquery/jquery-3.2.1.min.js"
+				th:src="@{/external/jquery/jquery-3.2.1.min.js}" ></script>		
+		<script src="external/bootstrap/js/bootstrap.min.js"
+				th:src="@{/external/bootstrap/js/bootstrap.min.js}" ></script>	
+	</div>
+
+	<head th:fragment="head-create">
 		<link rel="stylesheet" href="external/bootstrap-select/css/bootstrap-select.css" 
 			th:href="@{/external/bootstrap-select/css/bootstrap-select.css}" />
 		<link rel="stylesheet" href="external/bootstrap-toggle/css/bootstrap-toggle.min.css" 
 				th:href="@{/external/bootstrap-toggle/css/bootstrap-toggle.min.css}" />
+	</head>
 
-		<link rel="stylesheet" href="external/datatables.net-bs/css/dataTables.bootstrap.min.css" 
-				th:href="@{/external/datatables.net-bs/css/dataTables.bootstrap.min.css}" />				
-				
-		<link rel="stylesheet" href="external/bootstrap-treeview/css/bootstrap-treeview.css" 
-				th:href="@{/external/bootstrap-treeview/css/bootstrap-treeview.css}" />
-		<link rel="stylesheet" href="css/custom.css" th:href="@{/css/custom.css}" />
-		
-		<link rel="icon" type="image/x-icon" href="images/favicon.ico" th:href="@{/images/favicon.ico}"/>
-	
+	<div th:fragment="script-create">
 		<script src="external/jquery/jquery-3.2.1.min.js"
 				th:src="@{/external/jquery/jquery-3.2.1.min.js}" ></script>			
 		<script src="external/bootstrap-select/js/bootstrap-select.js"
 			th:src="@{/external/bootstrap-select/js/bootstrap-select.js}" ></script>
 		<script src="external/bootstrap-toggle/js/bootstrap-toggle.min.js"
 				th:src="@{/external/bootstrap-toggle/js/bootstrap-toggle.min.js}" ></script>
-		<script src="external/datatables.net-bs/js/jquery.dataTables.min.js" 
-				th:src="@{/external/datatables.net-bs/js/jquery.dataTables.min.js}" ></script>
-		<script src="external/datatables.net-bs/js/dataTables.bootstrap.min.js" 
-				th:src="@{/external/datatables.net-bs/js/dataTables.bootstrap.min.js}" ></script>				
-				
-	</head>  
-
-	<head th:fragment="head-min">
+		<script src="external/bootstrap/js/bootstrap.min.js"
+				th:src="@{/external/bootstrap/js/bootstrap.min.js}" ></script>
+	</div>
 	
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
- 	  	<title>IT Assets Inventory System</title>
-	  	<link rel="stylesheet" href="external/bootstrap/css/bootstrap.min.css" 
-				th:href="@{/external/bootstrap/css/bootstrap.min.css}" />
+	<head th:fragment="head-datatable">
 		<link rel="stylesheet" href="external/datatables.net-bs/css/dataTables.bootstrap.min.css" 
 				th:href="@{/external/datatables.net-bs/css/dataTables.bootstrap.min.css}" />
 		<link rel="stylesheet" href="external/datatables-buttons/css/buttons.bootstrap.min.css" 
 				th:href="@{/external/datatables-buttons/css/buttons.bootstrap.min.css}" />	
-				
-				
-		<link rel="stylesheet" href="css/custom.css" th:href="@{/css/custom.css}" />
-
-		<link rel="icon" type="image/x-icon" href="images/favicon.ico" th:href="@{/images/favicon.ico}"/>
-		
+	</head>
+	
+	<div th:fragment="script-datatable">
 		<script src="external/jquery/jquery-3.2.1.min.js"
 				th:src="@{/external/jquery/jquery-3.2.1.min.js}" ></script>	
+				
 		<script src="external/datatables.net-bs/js/jquery.dataTables.min.js" 
 				th:src="@{/external/datatables.net-bs/js/jquery.dataTables.min.js}" ></script>
+
+		<script src="external/datatables.net-bs/js/dataTables.bootstrap.min.js" 
+				th:src="@{/external/datatables.net-bs/js/dataTables.bootstrap.min.js}" ></script>
 				
 		<script src="external/datatables-buttons/js/dataTables.buttons.min.js" 
 				th:src="@{/external/datatables-buttons/js/dataTables.buttons.min.js}" ></script>
@@ -85,12 +82,12 @@
 				th:src="@{/external/datatables-buttons/js/buttons.print.min.js}" ></script>					
 				
 		<script src="external/datatables-buttons/js/buttons.colVis.min.js" 
-				th:src="@{/external/datatables-buttons/js/buttons.colVis.min.js}" ></script>					
-				
-				
-	</head>
-  
-  
+				th:src="@{/external/datatables-buttons/js/buttons.colVis.min.js}" ></script>
+		
+		<script src="external/bootstrap/js/bootstrap.min.js"
+				th:src="@{/external/bootstrap/js/bootstrap.min.js}" ></script>							
+	</div>	
+ 
   <body>
   
  	<header th:fragment="banner">
@@ -99,27 +96,7 @@
 		</div>
     </header> 
   
-  	<div th:fragment="bodybottom-scripts-all">
-		<script src="external/bootstrap/js/bootstrap.min.js"
-				th:src="@{/external/bootstrap/js/bootstrap.min.js}" ></script>			
-		<script src="external/bootstrap-select/js/bootstrap-select.min.js"
-			th:src="@{/external/bootstrap-select/js/bootstrap-select.min.js}" ></script>
-		<script src="external/bootstrap-toggle/js/bootstrap-toggle.min.js"
-				th:src="@{/external/bootstrap-toggle/js/bootstrap-toggle.min.js}" ></script>
-		<script src="external/jquery/jquery-3.2.1.min.js"
-				th:src="@{/external/jquery/jquery-3.2.1.min.js}" ></script>	
-		<script src="external/datatables.net-bs/js/jquery.dataTables.min.js" 
-				th:src="@{/external/datatables.net-bs/js/jquery.dataTables.min.js}" ></script>
-	</div>
-
-  	<div th:fragment="bodybottom-scripts-min">
-		<script src="external/bootstrap/js/bootstrap.min.js"
-				th:src="@{/external/bootstrap/js/bootstrap.min.js}" ></script>	
-	
-	</div>
-	
-
-	<footer th:fragment="footer">
+ 	<footer th:fragment="footer">
 		<p class="copyright">
 			<div>
 				Copyright &copy; 2017 <strong>Company.org</strong> | Disclaimer | Terms | Privacy | Feedback
