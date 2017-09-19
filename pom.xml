@@ -5,7 +5,7 @@
 
 	<groupId>org.itais</groupId>
 	<artifactId>ItaisWebApp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>ItaisWebApp</name>
@@ -56,6 +56,12 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.opencsv</groupId>
+		    <artifactId>opencsv</artifactId>
+		    <version>4.0</version>
 		</dependency>
 
 		<!-- =============DATABASE=============== -->

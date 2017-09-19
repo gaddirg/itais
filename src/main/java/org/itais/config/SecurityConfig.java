@@ -51,16 +51,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 		web.ignoring().antMatchers("/fonts/**");
 		web.ignoring().antMatchers("/external/**");
 	}
-  
-    
- /*   @Override
-    protected void configure(HttpSecurity http) throws Exception
-    {
-	http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated().and()
-		.formLogin().loginPage("/login").usernameParameter("email").permitAll().and().logout()
-		.logoutSuccessUrl("/login?logout").permitAll();
-	http.authorizeRequests().antMatchers("/webjars/**").permitAll();
-	http.csrf().disable();
-    }
-*/
+ 
 }
