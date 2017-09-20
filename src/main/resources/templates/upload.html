@@ -1,17 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+	<head th:replace="layouts/fragments :: head-bootstrap-core"></head>
+	<head th:replace="layouts/fragments :: head-custom-css"></head>
+
 <body>
 
-<h1>Spring Boot file upload example</h1>
+	<div th:replace="layouts/navigation:: nav-top"></div>
+	
+	<div id="wrapper">
+	
+		<div th:replace="layouts/navigation:: nav-side"></div>
+	
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+	        			<!-- Page Content -->
 
-<form method="POST" action="/upload" enctype="multipart/form-data">
-    <input type="file" name="file" /><br/><br/>
-    <input type="submit" value="Submit" />
-</form>
+						<h1>Spring Boot file upload example</h1>
+						
+						<form method="POST" action="/upload" enctype="multipart/form-data">
+						    <input type="file" name="file" /><br/><br/>
+						    <input type="submit" value="Submit" />
+						</form>
+						
+						<div th:if="${message}">
+						    <p th:text="${message}"/>
+						</div>
 
-<div th:if="${message}">
-    <p th:text="${message}"/>
-</div>
+        				<!-- /#page-content-wrapper -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
+
+    </div>
+    <!-- /#wrapper -->
+   
+	<div th:replace="layouts/fragments :: script-bootstrap-core"></div>
+
+	<div th:replace="layouts/fragments :: script-navbar"></div>
+
+		
 </body>
 </html>

@@ -39,82 +39,99 @@ table.dataTable {
 
 <body>
 
-	<div th:replace="layouts/navigation :: nav-private"></div>
-
-	<!-- Page Content -->
-    <div class="container">
-    
-	<div class="col-lg-12">
-			<h2 class="page-header">
-				Office Branches <a th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}"
-					href="/office/create" class="btn btn-primary pull-right"
-					role="button"><span class="glyphicon glyphicon-pencil" /> Create</a>
-			</h2>
-
-			<div class="well well-lg">
-				
-					<table class="table table-responsive" id="tableOffice">
-						<thead>
-							<tr>
-								<th style="text-align: right">Ascending|Descending Order</th>
-							</tr>
-						</thead>
-						<tbody>
-							<th:block th:each="office : ${offices}">
-								<tr>
-									<td> 
-									<div class="panel panel-body panel-default no-margin">
-										<span class="label label-date pull-right">
-	 										<span class="glyphicon glyphicon-calendar"/>
-	 										<span th:text="${#calendars.format(office.createdOn,'dd/MM/yyyy')}" /> 
-										</span>
-
-										<a class="link-title" th:href="|@{/office/read/}${office.id}|"><h4 th:text="${office.name}" /></a>
-										<div th:text="${office.location}" />
-																	
-										<hr class="faded"/>
-										<p th:text="${office.description}" /> 
-										<hr />
-										<span class="badge badge-online pull-right" th:if="${office.status} == true" >Online</span>
-										<span class="badge badge-offline pull-right" th:if="${office.status} == false" >Offline</span>
-										
-											<div>
-												<a th:href="|@{/office/read/}${office.id}|"
-													class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"/> View</a> 
+	<div th:replace="layouts/navigation:: nav-top"></div>
+	
+	<div id="wrapper">
+	
+		<div th:replace="layouts/navigation:: nav-side"></div>
+	
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+	        			<!-- Page Content -->
+	
+		
+						<h2 class="page-header">
+							Office Branches <a th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}"
+								href="/office/create" class="btn btn-primary pull-right"
+								role="button"><span class="glyphicon glyphicon-pencil" /> Create</a>
+						</h2>
+			
+						<div class="well well-lg">
+							
+								<table class="table table-responsive" id="tableOffice">
+									<thead>
+										<tr>
+											<th style="text-align: right">Ascending|Descending Order</th>
+										</tr>
+									</thead>
+									<tbody>
+										<th:block th:each="office : ${offices}">
+											<tr>
+												<td> 
+												<div class="panel panel-body panel-default no-margin">
+													<span class="label label-date pull-right">
+				 										<span class="glyphicon glyphicon-calendar"/>
+				 										<span th:text="${#calendars.format(office.createdOn,'dd/MM/yyyy')}" /> 
+													</span>
+			
+													<a class="link-title" th:href="|@{/office/read/}${office.id}|"><h4 th:text="${office.name}" /></a>
+													<div th:text="${office.location}" />
+																				
+													<hr class="faded"/>
+													<p th:text="${office.description}" /> 
+													<hr />
+													<span class="badge badge-online pull-right" th:if="${office.status} == true" >Online</span>
+													<span class="badge badge-offline pull-right" th:if="${office.status} == false" >Offline</span>
 													
-												<a th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
-													OR ${#authentication.getPrincipal().getUser().getOffice().getName()} == ${office.name})"
-													th:href="|@{/office/edit/}${office.id}|"
-													class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit" /> Edit</a> 
-													
-												<a th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')})"
-													th:href="|@{/office/delete/}${office.id}|"
-													class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit" /> Delete</a> 
+														<div>
+															<a th:href="|@{/office/read/}${office.id}|"
+																class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"/> View</a> 
+																
+															<a th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
+																OR ${#authentication.getPrincipal().getUser().getOffice().getName()} == ${office.name})"
+																th:href="|@{/office/edit/}${office.id}|"
+																class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit" /> Edit</a> 
+																
+															<a th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')})"
+																th:href="|@{/office/delete/}${office.id}|"
+																class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit" /> Delete</a> 
+			
+															<a  th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
+																OR ${#authentication.getPrincipal().getUser().getOffice().getName()} == ${office.name})"
+																th:href="|@{/callforproposals/create/}${office.id}|"
+																class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"/> Add Inventory</a>
+														</div>
+													</div>
+												</td>
+			
+											</tr>
+										</th:block>
+									</tbody>
+								</table>
+			
+								<p th:if="${offices.size() == 0}">
+									<div class="alert alert-warning" role="alert">No records found...</div>
+								</p>
+						</div>
 
-												<a  th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
-													OR ${#authentication.getPrincipal().getUser().getOffice().getName()} == ${office.name})"
-													th:href="|@{/callforproposals/create/}${office.id}|"
-													class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"/> Add Inventory</a>
-											</div>
-										</div>
-									</td>
 
-								</tr>
-							</th:block>
-						</tbody>
-					</table>
 
-					<p th:if="${offices.size() == 0}">
-						<div class="alert alert-warning" role="alert">No records found...</div>
-					</p>
+        				<!-- /#page-content-wrapper -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
 
-			</div>
 
-		</div>
-	</div>
+
 
 	<div th:replace="layouts/fragments :: script-datatable"></div>
-	<footer th:replace="layouts/fragments :: footer"></footer>	
+	<div th:replace="layouts/fragments :: script-navbar"></div>
+
 	
 		<script th:inline="javascript">
 		//DataTable Settings

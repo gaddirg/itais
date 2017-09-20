@@ -6,69 +6,79 @@
 
 <body>
 
-	<div th:replace="layouts/fragments :: banner"></div>
-	<div th:replace="layouts/navigation:: nav-private"></div>
-		
-	    <!-- Page Content -->
-    <div class="container">
+	<div th:replace="layouts/navigation:: nav-top"></div>
+	
+	<div id="wrapper">
+	
+		<div th:replace="layouts/navigation:: nav-side"></div>
+	
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+	        			<!-- Page Content -->
 
-        <!-- Main Section -->
 
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i> Dashboard</h4>
-                    </div>
-                    <div class="panel-body">
-                         <p>Sample data only... </p>
-                        <p>Sample data only... </p>
-                        <p>Sample data only... </p>
-                        <p>Sample data only... </p>
-                        <p>Sample data only... </p>
-                        <p>Sample data only... </p>
-                        <p>Sample data only... </p>
-                        <p>Sample data only... </p> 
+                        <h2 class="page-header">Home</h2>
+			            <div class="col-md-8">
+			                <div class="panel panel-default">
+			                    <div class="panel-heading">
+			                        <h4><i class="fa fa-fw fa-check"></i> Dashboard</h4>
+			                    </div>
+			                    <div class="panel-body">
+			                         <p>Sample data only... </p>
+			                        <p>Sample data only... </p>
+			                        <p>Sample data only... </p>
+			                        <p>Sample data only... </p>
+			                        <p>Sample data only... </p>
+			                        <p>Sample data only... </p>
+			                        <p>Sample data only... </p>
+			                        <p>Sample data only... </p> 
+			                    </div>
+			                </div>
+			            </div>
+			            <div class="col-md-4">
+			            	<row>
+			                <div class="panel panel-default">
+			                    <div class="panel-heading">
+			                        <h4><i class="fa fa-fw fa-gift"></i> Warranty expired</h4>
+			                    </div>
+			                    <div class="panel-body">
+			                        <p>DomainController2... </p>
+			                        <p>WebServer3... </p>
+			                        <p>VirtualMachine01... </p>
+			
+			                    </div>
+			                </div>
+			                </row>
+			                
+			            	<row>
+			                <div class="panel panel-default">
+			                    <div class="panel-heading">
+			                        <h4><i class="fa fa-fw fa-gift"></i> Warranty about to expire</h4>
+			                    </div>
+			                    <div class="panel-body">
+			
+			                        <p>VirtualMachine03... </p>
+			                        <p>DatabaseServer02... </p>
+			                        <p>Desktop01... </p>
+			                    </div>
+			                </div>
+			                </row>
+			            </div>                      
+
+
+        				<!-- /#page-content-wrapper -->
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-            	<row>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-gift"></i> Warranty expired</h4>
-                    </div>
-                    <div class="panel-body">
-                        <p>DomainController2... </p>
-                        <p>WebServer3... </p>
-                        <p>VirtualMachine01... </p>
-
-                    </div>
-                </div>
-                </row>
-                
-            	<row>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-gift"></i> Warranty about to expire</h4>
-                    </div>
-                    <div class="panel-body">
-
-                        <p>VirtualMachine03... </p>
-                        <p>DatabaseServer02... </p>
-                        <p>Desktop01... </p>
-                    </div>
-                </div>
-                </row>
-                
-                
-            </div>
- 
-
-     </div>
-    <!-- /.container -->	
-  	
+        </div>
+    </div>
+    <!-- /#wrapper -->
+   
 	<div th:replace="layouts/fragments :: script-bootstrap-core"></div>
-	<head th:replace="layouts/fragments :: footer"></head>
+	<div th:replace="layouts/fragments :: script-navbar"></div>
+
 		
 </body>
 </html>

@@ -89,12 +89,27 @@
 	</div>	
  
   <body>
-  
- 	<header th:fragment="banner">
-		<div class="jumbotron jumbotron-fluid text-center">
-			<h1>IT Assets Inventory System</h1> 
-		</div>
-    </header> 
+ 
+	<div th:fragment="script-navbar"> 
+		<script>
+	    $("#menu-toggle").click(function(e) {
+	        e.preventDefault();
+	        $("#wrapper").toggleClass("toggled");
+	    });
+	
+	    
+		$(document).ready(function() {
+			// get current URL path and assign 'active' class
+			var pathname = window.location.pathname;
+			$('.sidebar-nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+		});
+		
+		$(document).ready(function(){
+		    $('[data-toggle="tooltip"]').tooltip(); 
+		});   
+	    
+	    </script>
+	</div>  
   
  	<footer th:fragment="footer">
 		<p class="copyright">
@@ -104,20 +119,6 @@
 				This is a project of Rommel Gaddi, RMIT University
 			</div>
 		</p>
-		
-		<script>
-			$(document).ready(function() {
-				// get current URL path and assign 'active' class
-				var pathname = window.location.pathname;
-				$('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
-			});
-			
-			$(document).ready(function(){
-			    $('[data-toggle="tooltip"]').tooltip(); 
-			});
-			
-		</script>
-		
 	</footer>
 	
   </body>
