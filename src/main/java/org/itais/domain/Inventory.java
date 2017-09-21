@@ -66,17 +66,17 @@ public class Inventory
     @Column (nullable= false,columnDefinition = "TEXT")
     private long processorCount;
     
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private Date acquisitionDate;
+    @Column (nullable= true,columnDefinition = "TEXT")
+    private java.sql.Date acquisitionDate;
     
-    @Column (nullable= false,columnDefinition = "TEXT")
+    @Column (nullable= true,columnDefinition = "TEXT")
     private double acquisitionCost;
     
-    @Column (nullable= false,columnDefinition = "TEXT")
+    @Column (nullable= true,columnDefinition = "TEXT")
     private String warrantyProvider;
     
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private Date warrantyExpirationDate;
+    @Column (nullable= true,columnDefinition = "TEXT")
+    private java.sql.Date warrantyExpirationDate;
      
     @ManyToOne()
     @JoinColumn(name="office_id", nullable = false)
@@ -191,11 +191,11 @@ public class Inventory
 		this.processorCount = processorCount;
 	}
 
-	public Date getAcquisitionDate() {
+	public java.sql.Date getAcquisitionDate() {
 		return acquisitionDate;
 	}
 
-	public void setAcquisitionDate(Date acquisitionDate) {
+	public void setAcquisitionDate(java.sql.Date acquisitionDate) {
 		this.acquisitionDate = acquisitionDate;
 	}
 
@@ -215,11 +215,11 @@ public class Inventory
 		this.warrantyProvider = warrantyProvider;
 	}
 
-	public Date getWarrantyExpirationDate() {
+	public java.sql.Date getWarrantyExpirationDate() {
 		return warrantyExpirationDate;
 	}
 
-	public void setWarrantyExpirationDate(Date warrantyExpirationDate) {
+	public void setWarrantyExpirationDate(java.sql.Date warrantyExpirationDate) {
 		this.warrantyExpirationDate = warrantyExpirationDate;
 	}
 
@@ -245,8 +245,8 @@ public class Inventory
 
 	public Inventory(String name, String serialNumber, String manufacturer, String model,
 			String osName, String osVersion, String osServicePack, long memory, String hdd, String processorName,
-			long processorCount, Date acquisitionDate, double acquisitionCost, String warrantyProvider, 
-			Date warrantyExpirationDate, Office office, AssetType assetType) {
+			long processorCount, java.sql.Date acquisitionDate, double acquisitionCost, String warrantyProvider, 
+			java.sql.Date warrantyExpirationDate, Office office, AssetType assetType) {
 		super();
 		this.name = name;
 		this.serialNumber = serialNumber;
@@ -267,6 +267,24 @@ public class Inventory
 		this.assetType = assetType;
 	}
 
+	public Inventory(String name, String serialNumber, String manufacturer, String model,
+			String osName, String osVersion, String osServicePack, String processorName,
+			long processorCount, long memory, String hdd,  Office office, AssetType assetType) {
+		super();
+		this.name = name;
+		this.serialNumber = serialNumber;
+		this.manufacturer = manufacturer;
+		this.model = model;
+		this.osName = osName;
+		this.osVersion = osVersion;
+		this.osServicePack = osServicePack;
+		this.memory = memory;
+		this.hdd = hdd;
+		this.processorName = processorName;
+		this.processorCount = processorCount;
+		this.office = office;
+		this.assetType = assetType;
+	}
 	
 	
 }

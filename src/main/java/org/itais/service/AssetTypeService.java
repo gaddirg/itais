@@ -41,5 +41,10 @@ public class AssetTypeService
 	{
 		return assetTypeRepository.findAllByOrderByType();
 	}
+	
+	public AssetType findByType(String assetType)
+	{
+		return assetTypeRepository.findByType(assetType);
+	}
     
 }

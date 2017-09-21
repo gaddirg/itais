@@ -1,5 +1,18 @@
 package org.itais.controller;
 
+import org.itais.domain.Inventory;
+import org.itais.repository.AssetTypeRepository;
+import org.itais.repository.InventoryRepository;
+import org.itais.repository.OfficeRepository;
+import org.itais.repository.RoleRepository;
+import org.itais.repository.UserRepository;
+import org.itais.service.AssetTypeService;
+import org.itais.service.InventoryService;
+import org.itais.service.OfficeService;
+import org.itais.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +31,35 @@ import java.nio.file.Paths;
 
 @Controller
 public class UploadController {
+	
+	private OfficeService officeService;
+	private UserService userService;
+	private InventoryService inventoryService;
+	private AssetTypeService assetTypeService;
 
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+
+	@Autowired
+	public void configureAuth(AuthenticationManagerBuilder auth) throws Exception
+	{
+		auth.userDetailsService(userDetailsService);
+	}
+
+	@Autowired
+	public UploadController(OfficeService officeService, UserService userService,
+			InventoryService inventoryService, AssetTypeService assetTypeService)
+	{
+		super();
+		this.officeService = officeService;
+		this.userService = userService;
+		this.inventoryService = inventoryService;
+		this.assetTypeService = assetTypeService;
+	}
+
+
+	
     //Save the uploaded file to this folder
 	private Path UPLOADED_FOLDER = Paths.get("temp");
 	
@@ -50,7 +91,12 @@ public class UploadController {
             //skip header
             line = reader.readNext();
             while ((line = reader.readNext()) != null) {
-                System.out.println("Country [id= " + line[0] + ", code= " + line[1] + " , name=" + line[2] + "]");          
+
+    			final Inventory inv = new Inventory(line[0], line[1], line[2], line[3], line[4],
+    					line[5], line[6], line[7],Long.parseLong(line[8]), Long.parseLong(line[9]), line[10],
+    					officeService.findById((long) 1), assetTypeService.findByType(line[11]));
+    					inventoryService.save(inv);
+
             }
             reader.close();
             File fileToDelete = new File(UPLOADED_FOLDER + file.getOriginalFilename());

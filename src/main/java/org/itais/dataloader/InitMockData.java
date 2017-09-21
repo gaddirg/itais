@@ -62,12 +62,9 @@ public class InitMockData
 		final User user3 = new User("r2_user@company.org","r2","Katy","Jones",officeRepository.findByName("Region 1"),Arrays.asList(roleRepository.findByName("ROLE_USER")));
 		userRepository.save(user3);
 
-		String sDate1="31/12/1998";  
-		Date date1;
-		try {
-			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
-
-
+		java.sql.Date date1; 
+		date1 = java.sql.Date.valueOf("2017-12-25");
+		
 			final Inventory inventory1 = new Inventory("DomainController01", "SN03929382", "HP", "model123456",
 					"Windows Server 2012 R2", "6.2", "Service Pack 1", 10240, "C: 50000", "Intel(R) Core(TM) i5-4200U CPU @ 1.60GHz",
 					1, date1, 5000.00, "HP", date1, officeRepository.findById((long) 1), assetTypeRepository.findByType("Server"));
@@ -76,11 +73,8 @@ public class InitMockData
 					"Windows Server 2008 R2", "10", "Service Pack 3", 20240, "C: 100000; E: 80000", "Intel(R) Core(TM) i7-4200U CPU @ 2.00GHz",
 					2, date1, 80230.00, "Dell", date1, officeRepository.findById((long) 2), assetTypeRepository.findByType("Virtual Machine"));
 			inventoryRepository.save(inventory2);
-
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
+			
+ 
 
 	}
 
