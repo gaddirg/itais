@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService
 {
@@ -52,5 +53,15 @@ public class UserServiceImpl implements UserService, UserDetailsService
     {
 	return userRepository.save(user);
     }
+
+	@Override
+	public User findById(Long id) {
+		return userRepository.findOne(id);
+	}
+
+	@Override
+	public void delete(Long id) {
+		userRepository.delete(id);
+	}
 
 }

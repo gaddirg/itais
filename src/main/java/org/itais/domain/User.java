@@ -1,10 +1,8 @@
 package org.itais.domain;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,16 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 /**
  * 
@@ -36,8 +30,8 @@ public class User
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    private long id;
+    
     @Column(unique = true, nullable = false)
     private String email;
 
@@ -55,63 +49,36 @@ public class User
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
 
-    // Setting relations of th edifferent users
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    @JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
-	    @JoinColumn(name = "role_id") })
-    private Collection<Role> roles;
-
-    @OneToMany(mappedBy = "creator", cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private Set<Office> createdOffices = new HashSet<Office>();
+    @ManyToOne()
+    @JoinColumn(name="role_id", nullable = false)
+    private Role role;
 
     @OneToOne()
     @JoinColumn(name="office_id", nullable = true)
-    private Office office;    
+    private Office office;   
    
-    @OneToMany(mappedBy="creator", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
-    @Fetch(value = FetchMode.SUBSELECT)
-    private Set<Proposal> createdProposals = new HashSet<Proposal>();
-/**
- * returning user object to the immidiate super class
- */
-    public User()
-    {
-	super();
-	
-    }
+ 	public Office getOffice() {
+		return office;
+	}
 
-    /**storing user details in the database
-     * 
-     * @param email returns user email to the immediate super class
-     * @param password returns user password to the immediate super class
-     * @param firstName Returns user first name to the immediate super class
-     * @param lastName returns user last name to the immediate super class
-     * @param institution returns the user institution to immediate super class
-     * @param roles returns user role to immediate super class
-     */
-    public User(String email, String password, String firstName, String lastName, Office office,
-	    Collection<Role> roles)
-    {
-	super();
-	this.email = email;
-	this.password = password;
-	this.firstName = firstName;
-	this.lastName = lastName;
-	this.office = office;
-	this.roles = roles;
-    }
+	public void setOffice(Office office) {
+		this.office = office;
+	}
 
-/**
- * 
- * @return the user id to the id variable(Long Type)
- */
-    public Long getId()
+	public void setCreatedOffices(Set<Office> createdOffices) {
+		this.createdOffices = createdOffices;
+	}
+
+	@OneToMany(mappedBy = "creator", cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    private Set<Office> createdOffices = new HashSet<Office>();
+   
+
+    public long getId()
     {
 	return id;
     }
 
-    public void setId(Long id)
+    public void setId(long id)
     {
 	this.id = id;
     }
@@ -129,21 +96,7 @@ public class User
 	this.email = email;
     }
 
-    /**
-     * 
-     * @return the set of Repos to the OwnedRepo Object
-     */
-    public Office getOffice()
-    {
-	return office;
-    }
-
-    public void setOffice(Office office)
-    {
-	this.office = office;
-    }
-
-    /**
+ /**
      * 
      * @return the user password to the password variable(String Type)
      */
@@ -187,14 +140,14 @@ public class User
      * 
      * @return the Collection of ROle to roles object
      */
-    public Collection<Role> getRoles()
+    public Role getRole()
     {
-	return roles;
+	return role;
     }
 
-    public void setRoles(Collection<Role> roles)
+    public void setRole(Role role)
     {
-	this.roles = roles;
+	this.role = role;
     }
     /**
      * 
@@ -224,17 +177,27 @@ public class User
     {
         this.createdOn = createdOn;
     }
+   
     
-    public Set<Proposal> getCreatedProposals()
+    public User()
     {
-        return createdProposals;
+	super();
+	
     }
 
-    public void setCreatedProposals(Set<Proposal> createdProposals)
+     public User(String email, String password, String firstName, String lastName, Office office,
+	    Role role)
     {
-        this.createdProposals = createdProposals;
+	super();
+	this.email = email;
+	this.password = password;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.office = office;
+	this.role = role;
     }
-
+    
+    
     @Override
     public String toString()
     {

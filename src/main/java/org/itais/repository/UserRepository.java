@@ -5,6 +5,7 @@ import org.itais.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.UUID;
 /**
  * 
  *defines User repository interface extending  CrudRepository defining create retrieve update and delete functionality

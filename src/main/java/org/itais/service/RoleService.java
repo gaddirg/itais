@@ -29,7 +29,16 @@ public class RoleService
     {
 	return roleRepository.findByName(name);
     }
+    
+	public List<Role> list()
+	{
+		return roleRepository.findAllByOrderByNameDesc();
+	}
 
+    public Role findById(long id)
+    {
+	return roleRepository.findById(id);
+    }
     
 
 }

@@ -91,32 +91,5 @@ public class HomeController
 	return "user/sysadmin";
 	
     }
-    /**
-     * 
-     * @param sysAdmin details about the system administrator
-     * @return redirects system to the read url
-     */
-    @PreAuthorize("hasAuthority('SYSADMIN_CREATE_PRIVILEGE')")
-    @RequestMapping(value = "/user/sysadmin", method = RequestMethod.POST)
-    public String sysAdminSave(@ModelAttribute User sysAdmin)
-    {
-	User newUser = userService.save(sysAdmin);
-	return "redirect:read/" + newUser.getEmail();
-	
-    }
-    /**
-     * 
-     * @param email details stored email for authentication
-     * @param model details authority model 
-     * @return redirects the system to "user/read" url
-     */
-    @PreAuthorize("hasAuthority('USER_READ_PRIVILEGE')")
-    @RequestMapping("/user/read/{email}")
-    public String userRead(@PathVariable String email, Model model)
-    {
-	model.addAttribute("user",userService.findByEmail(email));
-	return "user/read";
-	
-    } 
    
 }

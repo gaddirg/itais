@@ -1,5 +1,8 @@
 package org.itais.repository;
 
+import java.util.List;
+
+import org.itais.domain.Inventory;
 import org.itais.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 /**
@@ -8,9 +11,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    Role findByName(String name);
-
     @Override
     void delete(Role role);
 
+	List<Role> findAllByOrderByNameDesc();
+
+	Role findById(long id);
+
+    Role findByName(String name);
+	
 }

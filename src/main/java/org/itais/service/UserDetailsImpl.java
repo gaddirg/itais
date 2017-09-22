@@ -2,10 +2,6 @@ package org.itais.service;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
-
-import javax.transaction.Transactional;
-
 import org.itais.domain.Role;
 import org.itais.domain.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -69,11 +65,9 @@ public class UserDetailsImpl implements UserDetails
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
 	Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-	Collection<Role> roles = user.getRoles();
-	for (Role role : roles)
-	{
-	    authorities.add(new SimpleGrantedAuthority(role.getName()));
-	}
+	Role role = user.getRole();
+	authorities.add(new SimpleGrantedAuthority(role.getName()));
+	
 	return authorities;
     }
     

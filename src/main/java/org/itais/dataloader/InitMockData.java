@@ -57,9 +57,9 @@ public class InitMockData
 		officeRepository.save(office4);		
 		
 		
-		final User user2 = new User("r1_user@company.org","r1","Mark","Gomez",officeRepository.findByName("Head Office"),Arrays.asList(roleRepository.findByName("ROLE_USER")));
+		final User user2 = new User("r1_user@company.org","r1","Mark","Gomez",officeRepository.findByName("Head Office"),roleRepository.findByName("ROLE_USER"));
 		userRepository.save(user2);
-		final User user3 = new User("r2_user@company.org","r2","Katy","Jones",officeRepository.findByName("Region 1"),Arrays.asList(roleRepository.findByName("ROLE_USER")));
+		final User user3 = new User("r2_user@company.org","r2","Katy","Jones",officeRepository.findByName("Region 1"),roleRepository.findByName("ROLE_USER"));
 		userRepository.save(user3);
 
 		java.sql.Date date1; 

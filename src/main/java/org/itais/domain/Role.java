@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 /**
  * 
@@ -26,10 +27,8 @@ public class Role
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+	private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users = new HashSet<User>();
 
     private Role()
     {
@@ -70,20 +69,6 @@ public class Role
     {
         this.name = name;
     }
-/**
- * 
- * @return th eset of user values to the users object
- */
-    public Set<User> getUsers()
-    {
-	return users;
-    }
-
-    public void setUsers(Set<User> users)
-    {
-	this.users = users;
-    }
-    
 
     @Override
     public String toString()
