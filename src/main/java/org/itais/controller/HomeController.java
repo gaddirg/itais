@@ -1,15 +1,19 @@
 package org.itais.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.itais.domain.Inventory;
 import org.itais.domain.Office;
 import org.itais.domain.User;
+import org.itais.service.AssetTypeService;
 import org.itais.service.InventoryService;
 import org.itais.service.OfficeService;
 import org.itais.service.UserDetailsImpl;
@@ -47,6 +51,7 @@ public class HomeController
     private OfficeService officeService;
     private UserService userService;
     private InventoryService inventoryService;
+    private AssetTypeService assetTypeService;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -56,40 +61,48 @@ public class HomeController
     {
 	auth.userDetailsService(userDetailsService);
     }
-    /**
-     * 
-     * @param officeService details the reposervice layer and its functions
-     * @param userService details the authenticated user service defined by service layer
-     * @param inventoryService details the calls for proposal service declared in CFP service layer class
-     */
+
     @Autowired
     public HomeController(OfficeService officeService, UserService userService,
-	    InventoryService inventoryService)
+	    InventoryService inventoryService, AssetTypeService assetTypeService)
     {
 	super();
 	this.officeService = officeService;
 	this.userService = userService;
 	this.inventoryService = inventoryService;
-    }
-
-    @RequestMapping("/")
-    public String home()
-    {
-	return "index";
+	this.assetTypeService = assetTypeService;
     }
     
-    /**
-     * 
-     * @param model detaiks the sys admin model for authority
-     * @return redirects system to authenticated admin to the "user/sysadmin" url
-     */
-    @PreAuthorize("hasAuthority('SYSADMIN_CREATE_PRIVILEGE')")
-    @RequestMapping("/user/sysadmin")
-    public String sysAdminCreate(Model model)
-    {
-	model.addAttribute("sysAdmin",new User());
-	return "user/sysadmin";
-	
-    }
+	@RequestMapping("/")
+	public String InventoryCreate(HttpServletRequest request, Model model)
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		java.sql.Date currDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, +60);
+		java.sql.Date dateAfter60Days = new java.sql.Date(cal.getTime().getTime());
+		
+		if (request.isUserInRole("ROLE_ADMIN"))	     
+		{
+			model.addAttribute("offices", officeService.listForSA());
+			model.addAttribute("assetTypes", assetTypeService.list());
+			model.addAttribute("inventories", inventoryService.list());	
+			model.addAttribute("invAboutToExpire", inventoryService.findByWarrantyExpirationDateBetween(currDate, dateAfter60Days));
+			model.addAttribute("invExpired", inventoryService.findByWarrantyExpirationDateBefore(currDate));
+		}
+		else
+		{
+			model.addAttribute("offices", userService.findByEmail(auth.getName()).getOffice());
+			model.addAttribute("inventories", userService.findByEmail(auth.getName()).getOffice().getInventories());
+		}
+		System.out.println(currDate);
+		System.out.println(dateAfter60Days);
+		return "index";
+	}
+    
+    
+    
    
 }

@@ -23,17 +23,51 @@
 			            <div class="col-md-8">
 			                <div class="panel panel-default">
 			                    <div class="panel-heading">
-			                        <h4><i class="fa fa-fw fa-check"></i> Dashboard</h4>
+			                        <h4>Inventories that will be expiring in 60 days</h4>
 			                    </div>
 			                    <div class="panel-body">
-			                         <p>Sample data only... </p>
-			                        <p>Sample data only... </p>
-			                        <p>Sample data only... </p>
-			                        <p>Sample data only... </p>
-			                        <p>Sample data only... </p>
-			                        <p>Sample data only... </p>
-			                        <p>Sample data only... </p>
-			                        <p>Sample data only... </p> 
+									  <table class="table table-striped">
+									    <thead>
+									      <tr>
+									      	<th>Office Branch</th>
+									        <th>Name</th>
+									        <th>Serial Number</th>
+									        <th>Warranty Expiration</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									    <th:block th:each="iate : ${invAboutToExpire}">
+									      <tr>
+									      	<td th:text="${iate.office.name}" />
+									        <td th:text="${iate.name}" />
+									        <td th:text="${iate.serialNumber}" />
+									        <td th:text="${iate.warrantyExpirationDate}" />
+									      </tr>
+									    </th:block>
+									    </tbody>
+									  </table>
+			                    </div>
+			                    <div class="panel-body">
+									  <table class="table table-striped">
+									    <thead>
+									      <tr>
+									      	<th>Office Branch</th>
+									        <th>Name</th>
+									        <th>Serial Number</th>
+									        <th>Warranty Expiration</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									    <th:block th:each="ie : ${invExpired}">
+									      <tr>
+									      	<td th:text="${ie.office.name}" />
+									        <td th:text="${ie.name}" />
+									        <td th:text="${ie.serialNumber}" />
+									        <td th:text="${ie.warrantyExpirationDate}" />
+									      </tr>
+									    </th:block>
+									    </tbody>
+									  </table>
 			                    </div>
 			                </div>
 			            </div>
@@ -41,13 +75,25 @@
 			            	<row>
 			                <div class="panel panel-default">
 			                    <div class="panel-heading">
-			                        <h4><i class="fa fa-fw fa-gift"></i> Warranty expired</h4>
+			                        <h4>Inventory per Office Branch</h4>
 			                    </div>
 			                    <div class="panel-body">
-			                        <p>DomainController2... </p>
-			                        <p>WebServer3... </p>
-			                        <p>VirtualMachine01... </p>
-			
+									  <table class="table table-striped">
+									    <thead>
+									      <tr>
+									        <th>Branch Offices</th>
+									        <th>Inventory Count</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									    <th:block th:each="office : ${offices}">
+									      <tr>
+									        <td th:text="${office.name}" />
+									        <td th:text="${office.inventories.size()}" />
+									      </tr>
+									    </th:block>
+									    </tbody>
+									  </table>
 			                    </div>
 			                </div>
 			                </row>
@@ -55,13 +101,26 @@
 			            	<row>
 			                <div class="panel panel-default">
 			                    <div class="panel-heading">
-			                        <h4><i class="fa fa-fw fa-gift"></i> Warranty about to expire</h4>
+			                        <h4>Inventory per Machine Type</h4>
 			                    </div>
 			                    <div class="panel-body">
 			
-			                        <p>VirtualMachine03... </p>
-			                        <p>DatabaseServer02... </p>
-			                        <p>Desktop01... </p>
+									  <table class="table table-striped">
+									    <thead>
+									      <tr>
+									        <th>Machine Type</th>
+									        <th>Inventory Count</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									    <th:block th:each="at : ${assetTypes}">
+									      <tr>
+									        <td th:text="${at.type}" />
+									        <td th:text="${at.inventories.size()}" />
+									      </tr>
+									    </th:block>
+									    </tbody>
+									  </table>
 			                    </div>
 			                </div>
 			                </row>

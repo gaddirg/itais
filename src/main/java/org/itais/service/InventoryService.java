@@ -1,5 +1,6 @@
 package org.itais.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.itais.domain.Inventory;
@@ -81,5 +82,15 @@ public class InventoryService
 		// TODO Auto-generated method stub
 		inventoryRepository.delete(id);
 
+	}
+	
+	public List<Inventory> findByWarrantyExpirationDateBetween(Date date1, Date date2)
+	{
+		return inventoryRepository.findByWarrantyExpirationDateBetween(date1, date2);
+	}
+	
+	public List<Inventory> findByWarrantyExpirationDateBefore(Date date)
+	{
+		return inventoryRepository.findByWarrantyExpirationDateBefore(date);
 	}
 }
