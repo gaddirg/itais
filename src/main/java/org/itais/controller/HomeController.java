@@ -1,10 +1,12 @@
 package org.itais.controller;
 
+import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,8 @@ import org.itais.service.InventoryService;
 import org.itais.service.OfficeService;
 import org.itais.service.UserDetailsImpl;
 import org.itais.service.UserService;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
 import org.springframework.security.access.annotation.Secured;
@@ -87,6 +91,7 @@ public class HomeController
 		if (request.isUserInRole("ROLE_ADMIN"))	     
 		{
 			model.addAttribute("offices", officeService.listForSA());
+			model.addAttribute("officeJson", getOfficeJsonAsString(officeService.listForSA()));
 			model.addAttribute("assetTypes", assetTypeService.list());
 			model.addAttribute("inventories", inventoryService.list());	
 			model.addAttribute("invAboutToExpire", inventoryService.findByWarrantyExpirationDateBetween(currDate, dateAfter60Days));
@@ -99,10 +104,42 @@ public class HomeController
 		}
 		System.out.println(currDate);
 		System.out.println(dateAfter60Days);
+		System.out.println(getOfficeJsonAsString(officeService.listForSA()));
 		return "index";
 	}
     
     
-    
+	public static String getOfficeJsonAsString(List<Office> offices)
+	{
+		JSONObject obj = new JSONObject();
+		JSONArray arr = new JSONArray();
+		for(Office off : offices)
+		{
+			obj.put("name", off.getName());
+			obj.put("invCount", off.getInventories().size());
+			obj.put("color", getColorCode());			
+			arr.put(obj);
+			obj = new JSONObject();
+		}
+		return arr.toString();
+	}
+	
+	public static String getColorCode()
+	{
+	       // create random object - reuse this as often as possible
+        Random random = new Random();
+
+        // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
+        int nextInt = random.nextInt(256*256*256);
+
+        // format it as hexadecimal string (with hashtag and leading zeros)
+        String colorCode = String.format("#%06x", nextInt);
+
+        // print it
+        return colorCode;
+	}
+	
+	
+	
    
 }

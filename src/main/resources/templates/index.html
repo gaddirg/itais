@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 	<head th:replace="layouts/fragments :: head-bootstrap-core"></head>
 	<head th:replace="layouts/fragments :: head-custom-css"></head>
-
+	<div th:replace="layouts/fragments :: script-chart"></div>
 <body>
 
 	<div th:replace="layouts/navigation:: nav-top"></div>
@@ -21,6 +22,8 @@
 
                         <h2 class="page-header">Home</h2>
 			            <div class="col-md-8">
+			            <row>
+			            
 			                <div class="panel panel-default">
 			                    <div class="panel-heading">
 			                        <h4>Inventories that will be expiring in 60 days</h4>
@@ -70,7 +73,74 @@
 									  </table>
 			                    </div>
 			                </div>
+			                </row>
+			                
+			                
+
+			               	<row>
+				                <div class="panel panel-default">
+				                    <div class="panel-heading">
+				                        <h4>Inventory per Machine Type</h4>
+				                    </div>
+				                    <div class="panel-body">
+				
+
+
+
+
+
+
+
+
+ <canvas id="myChart"></canvas>
+
+
+<script>
+
+
+var item;
+var jsonData = [[#{officeJson}]];
+
+
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'doughnut',
+  options: {
+      responsive: true
+  },
+  data: {
+    labels: ["M", "T", "W", "T", "F", "S", "S"],
+    datasets: [{
+      backgroundColor: [
+        "#2ea9b4",
+        "#668f3b",
+        "#e46585",
+        "#0b3432",
+        "#0b3432",
+        "#0b3432",
+        "#0b3432"
+      ],
+      data: [12, 19, 3, 17, 28, 24, 7]
+    }]
+  }
+});
+
+</script>
+
+
+
+
+
+				
+				                    </div>
+				                </div>
+			                </row>
+		    
 			            </div>
+			            
+			            
+			            
+			            
 			            <div class="col-md-4">
 			            	<row>
 			                <div class="panel panel-default">
@@ -124,6 +194,12 @@
 			                    </div>
 			                </div>
 			                </row>
+			                
+			                
+
+			                
+			                
+			                
 			            </div>                      
 
 
@@ -138,6 +214,8 @@
 	<div th:replace="layouts/fragments :: script-bootstrap-core"></div>
 	<div th:replace="layouts/fragments :: script-navbar"></div>
 
-		
+
+
+	
 </body>
 </html>
