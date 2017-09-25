@@ -5,7 +5,7 @@
 
 	<groupId>org.itais</groupId>
 	<artifactId>ItaisWebApp</artifactId>
-	<version>1.0</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>ItaisWebApp</name>
@@ -113,7 +113,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>org.dareon.DareonWebAppApplication</mainClass>
+							<mainClass>org.itais.ItaisWebAppApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

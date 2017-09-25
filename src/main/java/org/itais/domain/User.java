@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,12 +44,16 @@ public class User
 
     @Column(nullable = false)
     private String lastName;
-
-    @Basic(optional = false)
-    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    
+    @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
 
+    @PrePersist
+    protected void onCreate() {
+    createdOn = new Date();
+    }
+        
     @ManyToOne()
     @JoinColumn(name="role_id", nullable = false)
     private Role role;
@@ -56,7 +61,10 @@ public class User
     @OneToOne()
     @JoinColumn(name="office_id", nullable = true)
     private Office office;   
-   
+    
+	@OneToMany(mappedBy = "creator", cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    private Set<Office> createdOffices = new HashSet<Office>();
+    
  	public Office getOffice() {
 		return office;
 	}
@@ -68,10 +76,6 @@ public class User
 	public void setCreatedOffices(Set<Office> createdOffices) {
 		this.createdOffices = createdOffices;
 	}
-
-	@OneToMany(mappedBy = "creator", cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private Set<Office> createdOffices = new HashSet<Office>();
-   
 
     public long getId()
     {
@@ -179,6 +183,7 @@ public class User
     }
    
     
+
     public User()
     {
 	super();

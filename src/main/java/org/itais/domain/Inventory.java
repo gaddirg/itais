@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,10 +29,14 @@ public class Inventory
     @Id
     private long id;
 
-    @Basic(optional = false)
-    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
+
+    @PrePersist
+    protected void onCreate() {
+    createdOn = new Date();
+    }
  
     @Column (nullable= false, unique = true)
     private String name;   

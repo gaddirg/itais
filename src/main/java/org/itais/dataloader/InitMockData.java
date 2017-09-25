@@ -47,6 +47,7 @@ public class InitMockData
 
 	public void initData()
 	{
+		
 		final Office office1 = new Office("Head Office","Bourke Street, Melbourne, VIC 3032","Head Office Description",userRepository.findByEmail("admin@company.org"),true);
 		officeRepository.save(office1);
 		final Office office2 = new Office("Sydney Branch","Balfour St, Chippendale NSW 2008","Sydney Branch Office description",userRepository.findByEmail("admin@company.org"),true);
@@ -75,7 +76,7 @@ public class InitMockData
 			inventoryRepository.save(inventory2);
 			
  
-
+		
 	}
 
 }
