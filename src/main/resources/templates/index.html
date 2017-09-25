@@ -95,35 +95,51 @@
  <canvas id="myChart"></canvas>
 
 
-<script>
+<script type="text/javascript" th:inline="javascript">
 
-
-var item;
-var jsonData = [[#{officeJson}]];
-
+var gColor=myFunction("colors");
+var gLabels=myFunction("labels");
+var gData=myFunction("data");
 
 var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
-  type: 'doughnut',
+  type: 'bar',
   options: {
       responsive: true
   },
   data: {
-    labels: ["M", "T", "W", "T", "F", "S", "S"],
+    labels: gLabels,
     datasets: [{
-      backgroundColor: [
-        "#2ea9b4",
-        "#668f3b",
-        "#e46585",
-        "#0b3432",
-        "#0b3432",
-        "#0b3432",
-        "#0b3432"
-      ],
-      data: [12, 19, 3, 17, 28, 24, 7]
+      backgroundColor: gColor,
+      data: gData
     }]
   }
 });
+
+function myFunction(mode) {
+
+	var jsonData = [[${officeJson}]];
+	var jData = JSON.parse(jsonData);
+	
+	var labels = [];
+	var colors = [];
+	var data = [];
+	var x;
+	for (x in jData) {
+		labels.push(jData[x].name);
+		colors.push(jData[x].color);
+		data.push(jData[x].invCount);
+	}
+	
+	if(mode=="colors") {
+		return colors;
+	} else if (mode=="labels"){
+		return labels;
+	} else {
+		return data;
+	}
+
+}
 
 </script>
 
