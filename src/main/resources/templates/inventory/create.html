@@ -70,6 +70,16 @@
 								</div>
 							</div>
 		
+							<div class="form-group">
+								<label class="col-sm-2 control-label" id="label-create">
+									Status:</label>
+		  					<div class="col-md-6">
+									<select class="selectpicker" data-live-search="true" th:field="*{assetStatus}">
+										<option th:each="s: ${assetStatus}" th:value="${s.id}"
+											th:text="${s.status}" />
+									</select>
+								</div>
+							</div>
 		
 		
 							<div class="form-group">

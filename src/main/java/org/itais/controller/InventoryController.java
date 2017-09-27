@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.itais.domain.Inventory;
 import org.itais.domain.Office;
 import org.itais.domain.User;
+import org.itais.service.AssetStatusService;
 import org.itais.service.AssetTypeService;
 import org.itais.service.InventoryService;
 import org.itais.service.OfficeService;
@@ -48,6 +49,7 @@ public class InventoryController
 	private UserService userService;
 	private InventoryService inventoryService;
 	private AssetTypeService assetTypeService;
+	private AssetStatusService assetStatusService;
 
 
 	@Autowired
@@ -61,13 +63,15 @@ public class InventoryController
 
 	@Autowired
 	public InventoryController(OfficeService officeService, UserService userService,
-			InventoryService inventoryService, AssetTypeService assetTypeService)
+			InventoryService inventoryService, AssetTypeService assetTypeService, 
+			AssetStatusService assetStatusService)
 	{
 		super();
 		this.officeService = officeService;
 		this.userService = userService;
 		this.inventoryService = inventoryService;
 		this.assetTypeService = assetTypeService;
+		this.assetStatusService = assetStatusService;		
 	}
 
 
@@ -90,6 +94,7 @@ public class InventoryController
 			model.addAttribute("offices", userService.findByEmail(auth.getName()).getOffice());
 		}
 		model.addAttribute("assetTypes", assetTypeService.list());
+		model.addAttribute("assetStatus", assetStatusService.list());
 		model.addAttribute("inventories", new Inventory());
 		return "inventory/create";
 	}
@@ -106,6 +111,7 @@ public class InventoryController
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("offices", Arrays.asList(officeService.findById(id)));
 		model.addAttribute("assetTypes", Arrays.asList(assetTypeService.findById(id)));
+		model.addAttribute("assetStatus", Arrays.asList(assetStatusService.findById(id)));
 		model.addAttribute("inventories", new Inventory());
 		return "inventory/create";
 	}
@@ -137,6 +143,7 @@ public class InventoryController
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		model.addAttribute("assetTypes", assetTypeService.list());
+		model.addAttribute("assetStatus", assetStatusService.list());
 		model.addAttribute("inventories", inventoryService.findById(id));
 
 		if (request.isUserInRole("ROLE_ADMIN"))	     

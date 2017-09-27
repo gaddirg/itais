@@ -6,6 +6,7 @@ import org.itais.repository.InventoryRepository;
 import org.itais.repository.OfficeRepository;
 import org.itais.repository.RoleRepository;
 import org.itais.repository.UserRepository;
+import org.itais.service.AssetStatusService;
 import org.itais.service.AssetTypeService;
 import org.itais.service.InventoryService;
 import org.itais.service.OfficeService;
@@ -36,7 +37,7 @@ public class UploadController {
 	private UserService userService;
 	private InventoryService inventoryService;
 	private AssetTypeService assetTypeService;
-
+	private AssetStatusService assetStatusService;
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -49,13 +50,15 @@ public class UploadController {
 
 	@Autowired
 	public UploadController(OfficeService officeService, UserService userService,
-			InventoryService inventoryService, AssetTypeService assetTypeService)
+			InventoryService inventoryService, AssetTypeService assetTypeService,
+			AssetStatusService assetStatusService)
 	{
 		super();
 		this.officeService = officeService;
 		this.userService = userService;
 		this.inventoryService = inventoryService;
 		this.assetTypeService = assetTypeService;
+		this.assetStatusService = assetStatusService;
 	}
 
 
@@ -94,7 +97,8 @@ public class UploadController {
 
     			final Inventory inv = new Inventory(line[0], line[1], line[2], line[3], line[4],
     					line[5], line[6], line[7],Long.parseLong(line[8]), Long.parseLong(line[9]), line[10],
-    					officeService.findById((long) 1), assetTypeService.findByType(line[11]));
+    					officeService.findById((long) 1), assetTypeService.findByType(line[11]),
+    					assetStatusService.findByStatus("Operational"));
     					inventoryService.save(inv);
 
             }

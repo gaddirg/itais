@@ -57,6 +57,7 @@ public class InventoryService
 			inventoryDetails.setWarrantyProvider(inventory.getWarrantyProvider());
 			inventoryDetails.setWarrantyExpirationDate(inventory.getWarrantyExpirationDate());
 			inventoryDetails.setAssetType(inventory.getAssetType());
+			inventoryDetails.setAssetStatus(inventory.getAssetStatus());
 			inventoryDetails.setOffice(inventory.getOffice());
 			return inventoryRepository.save(inventoryDetails);
 		}

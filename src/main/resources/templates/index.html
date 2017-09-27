@@ -20,13 +20,11 @@
 	        			<!-- Page Content -->
 
 
-                        <h2 class="page-header">Home</h2>
-			            <div class="col-md-8">
+                        <h2 class="page-header">Dashboard</h2>
 			            <row>
-			            
 			                <div class="panel panel-default">
 			                    <div class="panel-heading">
-			                        <h4>Inventories that will be expiring in 60 days</h4>
+			                        <h4>Warranty: About to expire within 60 days</h4>
 			                    </div>
 			                    <div class="panel-body">
 									  <table class="table table-striped">
@@ -49,6 +47,11 @@
 									    </th:block>
 									    </tbody>
 									  </table>
+			                    </div>
+			                </div>
+			            	<div class="panel panel-default">
+			                    <div class="panel-heading">
+			                        <h4>Warranty: Expired</h4>
 			                    </div>
 			                    <div class="panel-body">
 									  <table class="table table-striped">
@@ -73,79 +76,37 @@
 									  </table>
 			                    </div>
 			                </div>
-			                </row>
-			                
-			                
-
-			               	<row>
-				                <div class="panel panel-default">
-				                    <div class="panel-heading">
-				                        <h4>Inventory per Machine Type</h4>
-				                    </div>
-				                    <div class="panel-body">
- 										<canvas id="officeChart"></canvas>
-				                    </div>
-				                </div>
-			                </row>
+			        	</row>
 		    
-			            </div>
-			            
-			            <div class="col-md-4">
-			            	<row>
+
+						<row>
+									            
+			            <div class="col-md-6">
+			            	
 			                <div class="panel panel-default">
 			                    <div class="panel-heading">
 			                        <h4>Inventory per Office Branch</h4>
 			                    </div>
 			                    <div class="panel-body">
-									  <table class="table table-striped">
-									    <thead>
-									      <tr>
-									        <th>Branch Offices</th>
-									        <th>Inventory Count</th>
-									      </tr>
-									    </thead>
-									    <tbody>
-									    <th:block th:each="office : ${offices}">
-									      <tr>
-									        <td th:text="${office.name}" />
-									        <td th:text="${office.inventories.size()}" />
-									      </tr>
-									    </th:block>
-									    </tbody>
-									  </table>
+									<canvas id="officeChart" />
 			                    </div>
 			                </div>
-			                </row>
 			                
-			            	<row>
+			             </div>
+			             <div class="col-md-6">   
+			            	
 			                <div class="panel panel-default">
 			                    <div class="panel-heading">
 			                        <h4>Inventory per Machine Type</h4>
 			                    </div>
 			                    <div class="panel-body">
-			
-									  <table class="table table-striped">
-									    <thead>
-									      <tr>
-									        <th>Machine Type</th>
-									        <th>Inventory Count</th>
-									      </tr>
-									    </thead>
-									    <tbody>
-									    <th:block th:each="at : ${assetTypes}">
-									      <tr>
-									        <td th:text="${at.type}" />
-									        <td th:text="${at.inventories.size()}" />
-									      </tr>
-									    </th:block>
-									    </tbody>
-									  </table>
+									<canvas id="assetTypeChart" />
 			                    </div>
 			                </div>
-			                </row>
+			                
 		                
 			            </div>                      
-
+						</row>
 
         				<!-- /#page-content-wrapper -->
                     </div>
@@ -161,10 +122,10 @@
 	<script type="text/javascript" th:inline="javascript">
 
 		var officeData = [[${officeJson}]];
-	
-		var gColor=myFunction("colors",officeData);
-		var gLabels=myFunction("labels",officeData);
-		var gData=myFunction("data",officeData);
+		
+		var oColors=myFunction("colors",officeData);
+		var oLabels=myFunction("labels",officeData);
+		var oData=myFunction("data",officeData);
 		
 		var ctx = document.getElementById("officeChart").getContext('2d');
 		var myChart = new Chart(ctx, {
@@ -173,13 +134,38 @@
 		      responsive: true
 		  },
 		  data: {
-		    labels: gLabels,
+		    labels: oLabels,
 		    datasets: [{
-		      backgroundColor: gColor,
-		      data: gData
+		      backgroundColor: oColors,
+		      data: oData
 		    }]
 		  }
 		});
+
+		
+		var assetTypeData = [[${assetTypeJson}]];
+		
+		var atColors=myFunction("colors",assetTypeData);
+		var atLabels=myFunction("labels",assetTypeData);
+		var atData=myFunction("data",assetTypeData);
+		
+		var ctx = document.getElementById("assetTypeChart").getContext('2d');
+		var myChart = new Chart(ctx, {
+		  type: 'doughnut',
+		  options: {
+		      responsive: true
+		  },
+		  data: {
+		    labels: atLabels,
+		    datasets: [{
+		      backgroundColor: atColors,
+		      data: atData
+		    }]
+		  }
+		});		
+		
+		
+		
 		
 		function myFunction(mode, jsonData) {
 

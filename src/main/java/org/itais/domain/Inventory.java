@@ -91,9 +91,20 @@ public class Inventory
     @JoinColumn(name="assetType_id", nullable = true)
     private AssetType assetType;
 
+    @ManyToOne()
+    @JoinColumn(name="assetStatus_id", nullable = true)
+    private AssetStatus assetStatus;   
   
     public long getId() {
 		return id;
+	}
+
+	public AssetStatus getAssetStatus() {
+		return assetStatus;
+	}
+
+	public void setAssetStatus(AssetStatus assetStatus) {
+		this.assetStatus = assetStatus;
 	}
 
 	public void setId(long id) {
@@ -251,7 +262,7 @@ public class Inventory
 	public Inventory(String name, String serialNumber, String manufacturer, String model,
 			String osName, String osVersion, String osServicePack, long memory, String hdd, String processorName,
 			long processorCount, java.sql.Date acquisitionDate, double acquisitionCost, String warrantyProvider, 
-			java.sql.Date warrantyExpirationDate, Office office, AssetType assetType) {
+			java.sql.Date warrantyExpirationDate, Office office, AssetType assetType, AssetStatus assetStatus) {
 		super();
 		this.name = name;
 		this.serialNumber = serialNumber;
@@ -270,11 +281,13 @@ public class Inventory
 		this.warrantyExpirationDate = warrantyExpirationDate;
 		this.office = office;
 		this.assetType = assetType;
+		this.assetStatus = assetStatus;
 	}
 
 	public Inventory(String name, String serialNumber, String manufacturer, String model,
 			String osName, String osVersion, String osServicePack, String processorName,
-			long processorCount, long memory, String hdd,  Office office, AssetType assetType) {
+			long processorCount, long memory, String hdd,  Office office, AssetType assetType,
+			AssetStatus assetStatus) {
 		super();
 		this.name = name;
 		this.serialNumber = serialNumber;
@@ -289,6 +302,7 @@ public class Inventory
 		this.processorCount = processorCount;
 		this.office = office;
 		this.assetType = assetType;
+		this.assetStatus = assetStatus;
 	}
 	
 	

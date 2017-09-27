@@ -14,8 +14,9 @@ public interface OfficeRepository extends CrudRepository<Office, Long>
 
     Office findById(Long id);
     Office findByName(String name);
-    List<Office> findAllByOrderByCreatedOnDesc();
+    List<Office> findAllByOrderByNameAsc();
 //    List<Office> findAllByOwnerAndStatusOrderByCreatedOnDesc(User owner, Boolean status);
     List<Office> findAllByStatusOrderByCreatedOnDesc(Boolean status);
 
 }
+

@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.itais.domain.AssetType;
 import org.itais.domain.Inventory;
 import org.itais.domain.Office;
 import org.itais.domain.User;
@@ -90,21 +91,15 @@ public class HomeController
 		
 		if (request.isUserInRole("ROLE_ADMIN"))	     
 		{
-			model.addAttribute("offices", officeService.listForSA());
 			model.addAttribute("officeJson", getOfficeJsonAsString(officeService.listForSA()));
-			model.addAttribute("assetTypes", assetTypeService.list());
-			model.addAttribute("inventories", inventoryService.list());	
+			model.addAttribute("assetTypeJson", getAssetTypeJsonAsString(assetTypeService.list()));
 			model.addAttribute("invAboutToExpire", inventoryService.findByWarrantyExpirationDateBetween(currDate, dateAfter60Days));
 			model.addAttribute("invExpired", inventoryService.findByWarrantyExpirationDateBefore(currDate));
 		}
 		else
 		{
-			model.addAttribute("offices", userService.findByEmail(auth.getName()).getOffice());
-			model.addAttribute("inventories", userService.findByEmail(auth.getName()).getOffice().getInventories());
+			model.addAttribute("officeJson", getOfficeJsonAsString(officeService.listForUsers()));
 		}
-		System.out.println(currDate);
-		System.out.println(dateAfter60Days);
-		System.out.println(getOfficeJsonAsString(officeService.listForSA()));
 		return "index";
 	}
     
@@ -123,6 +118,21 @@ public class HomeController
 		}
 		return arr.toString();
 	}
+
+	public static String getAssetTypeJsonAsString(List<AssetType> assetTypes)
+	{
+		JSONObject obj = new JSONObject();
+		JSONArray arr = new JSONArray();
+		for(AssetType at : assetTypes)
+		{
+			obj.put("name", at.getType());
+			obj.put("invCount", at.getInventories().size());
+			obj.put("color", getColorCode());			
+			arr.put(obj);
+			obj = new JSONObject();
+		}
+		return arr.toString();
+	}	
 	
 	public static String getColorCode()
 	{

@@ -70,16 +70,15 @@ public class OfficeService
     @Transactional()
     public List<Office> listForSA()
     {
-	return officeRepository.findAllByOrderByCreatedOnDesc();
+	return officeRepository.findAllByOrderByNameAsc();
     }
     
     @Transactional()
-    public List<Office> listForOtherRoles()
+    public List<Office> listForUsers()
     {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	List<Office> offices = new ArrayList<Office>();
-	offices.addAll(officeRepository.findAllByStatusOrderByCreatedOnDesc(true));
-//	offices.addAll(officeRepository.findAllByOwnerAndStatusOrderByCreatedOnDesc(userRepository.findByEmail(auth.getName()), false));
+	offices.addAll(officeRepository.findAllByOrderByNameAsc());
 	return offices;
     }
     

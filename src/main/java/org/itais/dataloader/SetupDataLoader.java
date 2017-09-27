@@ -1,19 +1,13 @@
 package org.itais.dataloader;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import org.itais.domain.AssetStatus;
 import org.itais.domain.AssetType;
 import org.itais.domain.Role;
 import org.itais.domain.User;
+import org.itais.repository.AssetStatusRepository;
 import org.itais.repository.AssetTypeRepository;
 import org.itais.repository.InventoryRepository;
 import org.itais.repository.OfficeRepository;
-import org.itais.repository.ProposalRepository;
 import org.itais.repository.RoleRepository;
 import org.itais.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +36,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
     @Autowired
     private AssetTypeRepository assetTypeRepository;
+   
+    @Autowired
+    private AssetStatusRepository assetStatusRepository;
+    
     
     // API
 
@@ -63,8 +61,12 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	createAssetTypeIfNotFound("Virtual Machine Host");
 	createAssetTypeIfNotFound("Virtual Machine");
 	createAssetTypeIfNotFound("Desktop");
-	
-	InitMockData initMockData = new InitMockData(roleRepository, userRepository, officeRepository, inventoryRepository, assetTypeRepository);
+
+	createAssetStatusIfNotFound("Operational");
+	createAssetStatusIfNotFound("Non-operational");
+	createAssetStatusIfNotFound("Decommissioned");
+		
+	InitMockData initMockData = new InitMockData(roleRepository, userRepository, officeRepository, inventoryRepository, assetTypeRepository, assetStatusRepository);
 	
 	initMockData.initData();
 
@@ -95,7 +97,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	}
 	return uEmail;
     }
-  
 
     @Transactional
     private final AssetType createAssetTypeIfNotFound(final String type)
@@ -109,5 +110,16 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	return aType;
     }    
     
-
+    @Transactional
+    private final AssetStatus createAssetStatusIfNotFound(final String status)
+    {
+	AssetStatus aStatus = assetStatusRepository.findByStatus(status);
+	if (aStatus == null)
+	{
+	    aStatus = new AssetStatus(status);
+	    assetStatusRepository.save(aStatus);
+	}
+	return aStatus;
+    }    
+    
 }

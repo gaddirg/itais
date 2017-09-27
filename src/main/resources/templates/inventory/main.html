@@ -44,6 +44,8 @@
 									<th>Serial Number</th>
 									<th>Manufacturer</th>
 									<th>Model</th>
+									<th>Type</th>
+									<th>Status</th>																		
 									<th>Operating System</th>
 									<th>Memory</th>
 									<th>Hard Disk</th>
@@ -65,6 +67,8 @@
 										<td th:text="${inventory.serialNumber}" />
 										<td th:text="${inventory.manufacturer}" />
 										<td th:text="${inventory.model}" />
+										<td th:text="${inventory.assetType.type}" />
+										<td th:text="${inventory.assetStatus.status}" />
 										<td th:text="${inventory.osName}" />
 										<td th:text="${inventory.memory}" />
 										<td th:text="${inventory.hdd}" />
