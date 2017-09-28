@@ -94,4 +94,19 @@ public class InventoryService
 	{
 		return inventoryRepository.findByWarrantyExpirationDateBefore(date);
 	}
+	
+	public List<Inventory> findByWarrantyExpirationDateBeforeAndOffice(Date date, Office office)
+	{
+		return inventoryRepository.findByWarrantyExpirationDateBeforeAndOffice(date, office);
+	}
+
+	public List<Inventory> findByWarrantyExpirationDateBetweenAndOffice(Date date1, Date date2, Office office)
+	{
+		return inventoryRepository.findByWarrantyExpirationDateBetweenAndOffice(date1, date2, office);
+	}	
+	
+	public List<Inventory> findByOffice(Office office)
+	{
+		return inventoryRepository.findByOffice(office);
+	}
 }

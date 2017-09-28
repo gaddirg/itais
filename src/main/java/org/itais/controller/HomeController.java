@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
@@ -97,8 +98,11 @@ public class HomeController
 			model.addAttribute("invExpired", inventoryService.findByWarrantyExpirationDateBefore(currDate));
 		}
 		else
-		{
-			model.addAttribute("officeJson", getOfficeJsonAsString(officeService.listForUsers()));
+		{	
+			Office office = userService.findByEmail(auth.getName()).getOffice();
+			model.addAttribute("invExpired", inventoryService.findByWarrantyExpirationDateBeforeAndOffice(currDate, office));
+			model.addAttribute("invAboutToExpire", inventoryService.findByWarrantyExpirationDateBetweenAndOffice(currDate, dateAfter60Days, office));
+			
 		}
 		return "index";
 	}

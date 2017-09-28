@@ -21,146 +21,98 @@
 		
 		
 						<h2 class="page-header">Inventory Details</h2>
-			
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4>
-									<p th:text="${inventories.name}" />
-								</h4>
-							</div>
-			
-							<div class="panel-body">
-			
-								<div>
-									<label class="col-sm-2 control-label">Office Branch: </label>
-									<div class="col-md-10">
-										<p th:text="${inventories.office.name}" />
-									</div>
-								</div>
-			
-								<div>
-									<label class="col-sm-2 control-label">Date Created:</label>
-									<div class="col-md-10">
-										<p
-											th:text="${#calendars.format(inventories.createdOn,'dd MMMM yyyy')}" />
-									</div>
-								</div>
-			
-								<div>
-									<label class="col-sm-2 control-label">Serial Number:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.serialNumber}" />
-									</div>
-								</div>
-			
-								<div>
-									<label class="col-sm-2 control-label">Type:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.assetType.type}" />
-									</div>
-								</div>
-
-								<div>
-									<label class="col-sm-2 control-label">Status:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.assetStatus.status}" />
-									</div>
-								</div>
-			
-								<div>
-									<label class="col-sm-2 control-label">Manufacturer:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.manufacturer}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">Model:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.model}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">OS Name:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.osName}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">OS Version:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.osVersion}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">OS Service Pack:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.osServicePack}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">Memory (MB):</label>
-									<div class="col-md-10">
-										<p th:text="${#numbers.formatInteger(inventories.memory,1,'COMMA')}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">Disk Drive:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.hdd}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">Processor Name:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.processorName}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">Processor Count:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.processorCount}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">Acquisition Date:</label>
-									<div class="col-md-10">
-										<p th:if="${inventories.acquisitionDate} != null" th:text="${#calendars.format(inventories.acquisitionDate,'dd MMMM yyyy')}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">Acquisition Cost:</label>
-									<div class="col-md-10">
-										<p th:text="${#numbers.formatDecimal(inventories.acquisitionCost,1,'COMMA',2,'POINT')}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">Warranty Provider:</label>
-									<div class="col-md-10">
-										<p th:text="${inventories.warrantyProvider}" />
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-sm-2 control-label">Warranty Expiration:</label>
-									<div class="col-md-10">
-										<p th:if="${inventories.warrantyExpirationDate} != null" th:text="${#calendars.format(inventories.warrantyExpirationDate,'dd MMMM yyyy')}" />
-									</div>
-								</div>
-								
+						<div class="row">			
+						<div class="col-md-8">
+							<div class="panel panel-default panel-body">
+								<table class="table table-striped">
+									<tr>
+										<td>Name:</td>
+										<td th:text="${inventories.name}"></td>								
+									</tr>								
+									<tr>
+										<td>Office Branch:</td>
+										<td th:text="${inventories.office.name}"></td>								
+									</tr>
+									<tr>
+										<td>Date Created:</td>
+										<td th:text="${#calendars.format(inventories.createdOn,'dd MMMM yyyy')}" />								
+									</tr>
+									<tr>
+										<td>Serial Number:</td>
+										<td th:text="${inventories.serialNumber}"/>								
+									</tr>
+									<tr>
+										<td>Machine Type:</td>
+										<td th:text="${inventories.assetType.type}"/>								
+									</tr>
+									<tr>
+										<td>Status:</td>
+										<td th:text="${inventories.assetStatus.status}" />								
+									</tr>
+									<tr>
+										<td>Manufacturer:</td>
+										<td th:text="${inventories.manufacturer}"/>								
+									</tr>
+									<tr>
+										<td>Model:</td>
+										<td th:text="${inventories.model}" />								
+									</tr>
+									<tr>
+										<td>Operating System:</td>
+										<td th:text="${inventories.osName}"/>								
+									</tr>
+									<tr>
+										<td>Version:</td>
+										<td th:text="${inventories.osVersion}"/>								
+									</tr>
+									<tr>
+										<td>Service Pack:</td>
+										<td th:text="${inventories.osServicePack}"/>								
+									</tr>
+									<tr>
+										<td>Memory (MB):</td>
+										<td th:text="${#numbers.formatInteger(inventories.memory,1,'COMMA')}"/>								
+									</tr>
+									<tr>
+										<td>Disk Drive/s:</td>
+										<td th:text="${inventories.hdd}"/>								
+									</tr>
+									<tr>
+										<td>Processor:</td>
+										<td th:text="${inventories.processorName}"/>								
+									</tr>
+									<tr>
+										<td>Processor Count:</td>
+										<td th:text="${inventories.processorCount}"/>								
+									</tr>
+									<tr>
+										<td>Acquisition Date:</td>
+										<td th:if="${inventories.acquisitionDate} != null" th:text="${#calendars.format(inventories.acquisitionDate,'dd MMMM yyyy')}" />								
+									</tr>
+									<tr>
+										<td>Acquisition Cost:</td>
+										<td th:text="${#numbers.formatDecimal(inventories.acquisitionCost,1,'COMMA',2,'POINT')}"/>								
+									</tr>
+									<tr>
+										<td>Warranty Provider:</td>
+										<td th:text="${inventories.warrantyProvider}"/>								
+									</tr>
+									<tr>
+										<td>Warranty Expiration:</td>
+										<td th:if="${inventories.warrantyExpirationDate} != null" th:text="${#calendars.format(inventories.warrantyExpirationDate,'dd MMMM yyyy')}"/>								
+									</tr>
+								</table>			
 							</div>
 						</div>
-			
+					
+						<div class="col-md-4">
+						<div class="panel panel-default panel-body" align="center">
+							<div id="qrCode"></div>
+						</div>
+						</div>
+						</div>
+						
+						
 						<div class="col-sm-6">
 							<a type="button" class="btn btn-default"
 								th:href="|@{/inventory/main}"><span
@@ -203,7 +155,19 @@
     <!-- /#wrapper -->
    
 	<div th:replace="layouts/fragments :: script-bootstrap-core"></div>
+		<div th:replace="layouts/fragments :: script-qrcode"></div>
 	<div th:replace="layouts/fragments :: script-navbar"></div>
+	
+	
+	<script type="text/javascript" th:inline="javascript">
+	//jQuery('#qrcode').qrcode("this plugin is great");
+	jQuery('#qrCode').qrcode({
+		render	: "table",
+		text	: [[${inventories.serialNumber}]]
+	});	
+	
+</script>
+	
 
 </body>
 </html>

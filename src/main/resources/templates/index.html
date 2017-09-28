@@ -21,7 +21,8 @@
 
 
                         <h2 class="page-header">Dashboard</h2>
-			            <row>
+			            <div class="row">
+			            <div class="col-md-12">
 			                <div class="panel panel-default">
 			                    <div class="panel-heading">
 			                        <h4>Warranty: About to expire within 60 days</h4>
@@ -33,6 +34,7 @@
 									      	<th>Office Branch</th>
 									        <th>Name</th>
 									        <th>Serial Number</th>
+									        <th>Warranty Provider</th>
 									        <th>Warranty Expiration</th>
 									      </tr>
 									    </thead>
@@ -42,6 +44,7 @@
 									      	<td th:text="${iate.office.name}" />
 									        <td th:text="${iate.name}" />
 									        <td th:text="${iate.serialNumber}" />
+									        <td th:text="${iate.warrantyProvider}" />
 									        <td th:text="${iate.warrantyExpirationDate}" />
 									      </tr>
 									    </th:block>
@@ -60,6 +63,7 @@
 									      	<th>Office Branch</th>
 									        <th>Name</th>
 									        <th>Serial Number</th>
+									        <th>Warranty Provider</th>
 									        <th>Warranty Expiration</th>
 									      </tr>
 									    </thead>
@@ -69,6 +73,7 @@
 									      	<td th:text="${ie.office.name}" />
 									        <td th:text="${ie.name}" />
 									        <td th:text="${ie.serialNumber}" />
+									        <td th:text="${ie.warrantyProvider}" />
 									        <td th:text="${ie.warrantyExpirationDate}" />
 									      </tr>
 									    </th:block>
@@ -76,10 +81,11 @@
 									  </table>
 			                    </div>
 			                </div>
-			        	</row>
+			                </div>
+			        	</div>
 		    
 
-						<row>
+						<div class="row">
 									            
 			            <div class="col-md-6">
 			            	
@@ -106,7 +112,7 @@
 			                
 		                
 			            </div>                      
-						</row>
+						</div>
 
         				<!-- /#page-content-wrapper -->
                     </div>

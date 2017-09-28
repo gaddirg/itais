@@ -1,6 +1,7 @@
 package org.itais.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -74,12 +75,12 @@ public class OfficeService
     }
     
     @Transactional()
-    public List<Office> listForUsers()
+    public Office listForUsers()
     {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	List<Office> offices = new ArrayList<Office>();
-	offices.addAll(officeRepository.findAllByOrderByNameAsc());
-	return offices;
+	Office office = userRepository.findByEmail(auth.getName()).getOffice();
+			
+	return office;
     }
     
     public Office findByName(String name)

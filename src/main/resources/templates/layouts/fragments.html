@@ -40,6 +40,13 @@
 				th:href="@{/external/bootstrap-toggle/css/bootstrap-toggle.min.css}" />
 	</head>
 
+	<div th:fragment="script-qrcode">
+		<script src="external/jquery-qrcode/jquery.qrcode.js"
+				th:src="@{/external/jquery-qrcode/jquery.qrcode.js}" ></script>			
+		<script src="external/jquery-qrcode/qrcode.js"
+				th:src="@{/external/jquery-qrcode/qrcode.js}" ></script>	
+	</div>
+
 	<div th:fragment="script-create">
 		<script src="external/jquery/jquery-3.2.1.min.js"
 				th:src="@{/external/jquery/jquery-3.2.1.min.js}" ></script>			
