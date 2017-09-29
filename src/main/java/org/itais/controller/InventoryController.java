@@ -153,6 +153,19 @@ public class InventoryController
 		return "inventory/read";
 	}
 
+	/**
+	 * @param 
+	 * @param 
+	 * @return 
+	 */
+	@RequestMapping("/inventory/readsn/{serialNumber}")
+	public String InventoryReadBySerialNumber(@PathVariable String serialNumber, Model model)
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("inventories", inventoryService.findBySerialNumber(serialNumber));
+		return "inventory/read";
+	}	
+	
 
 	/**
 	 * @param 
@@ -200,5 +213,12 @@ public class InventoryController
 		inventoryService.delete(id);
 		return new RedirectView("/inventory/main");
 	}
+	
+	@RequestMapping("/inventory/scanqr")
+	public String InventoryScanQR()
+	{
+		return "/inventory/scanqr";
+	}
+	
 
 }

@@ -61,12 +61,12 @@ public class UploadController {
 	//Save the uploaded file to this folder
 	private Path UPLOADED_FOLDER = Paths.get("temp");
 
-	@GetMapping("/upload")
+	@GetMapping("/inventory/upload")
 	public String index() {
-		return "upload";
+		return "/inventory/upload";
 	}
 
-	@PostMapping("/upload") 
+	@PostMapping("/inventory/upload") 
 	public String singleFileUpload(@RequestParam("file") MultipartFile file,
 			RedirectAttributes redirectAttributes) {
 
