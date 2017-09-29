@@ -64,6 +64,11 @@
 		    <version>4.0</version>
 		</dependency>
 
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 		<!-- =============DATABASE=============== -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -80,13 +85,6 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
-		</dependency>
-
-		<!-- =============AAF AUTHENTICATION=============== -->
-		<dependency>
-			<groupId>com.nimbusds</groupId>
-			<artifactId>nimbus-jose-jwt</artifactId>
-			<version>4.36.1</version>
 		</dependency>
 
 		<!-- =============RANDOM PASSWORD GENERATOR=============== -->

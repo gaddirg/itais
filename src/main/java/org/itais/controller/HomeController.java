@@ -18,6 +18,8 @@ import org.itais.domain.Inventory;
 import org.itais.domain.Office;
 import org.itais.domain.User;
 import org.itais.service.AssetTypeService;
+import org.itais.service.EmailService;
+import org.itais.service.EmailServiceImpl;
 import org.itais.service.InventoryService;
 import org.itais.service.OfficeService;
 import org.itais.service.UserDetailsImpl;
@@ -46,10 +48,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-/**
- *Class defining the controller of home page of the complete system.
- *
- */
+
 @Controller
 public class HomeController
 {
@@ -59,6 +58,9 @@ public class HomeController
     private InventoryService inventoryService;
     private AssetTypeService assetTypeService;
 
+	@Autowired
+	private EmailServiceImpl emailService;
+    
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -152,8 +154,5 @@ public class HomeController
         // print it
         return colorCode;
 	}
-	
-	
-	
-   
+	   
 }

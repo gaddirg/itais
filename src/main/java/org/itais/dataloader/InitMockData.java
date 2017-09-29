@@ -1,30 +1,15 @@
 package org.itais.dataloader;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
-
-import org.itais.domain.AssetType;
 import org.itais.domain.Inventory;
 import org.itais.domain.Office;
-import org.itais.domain.Proposal;
-import org.itais.domain.Role;
 import org.itais.domain.User;
 import org.itais.repository.AssetStatusRepository;
 import org.itais.repository.AssetTypeRepository;
 import org.itais.repository.InventoryRepository;
 import org.itais.repository.OfficeRepository;
-import org.itais.repository.ProposalRepository;
 import org.itais.repository.RoleRepository;
 import org.itais.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-/**
- * 
- *This Class sets initial users and roles for diifferent repositories of this website
- */
+
 public class InitMockData
 {
 

@@ -6,10 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.sql.Date;
 import java.util.List;
-/**
- * 
- *defines CFP repository extending super class CRUD repository defining create retreive update and delete functionality.
- */
+
 public interface InventoryRepository extends CrudRepository<Inventory, Long>
 {
 

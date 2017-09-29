@@ -1,21 +1,13 @@
 package org.itais.domain;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,77 +17,77 @@ import javax.persistence.TemporalType;
 @Table (name = "inventory")
 public class Inventory
 {
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id
-    private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	private long id;
 
-    @Column(nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn;
+	@Column(nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdOn;
 
-    @PrePersist
-    protected void onCreate() {
-    createdOn = new Date();
-    }
- 
-    @Column (nullable= false, unique = true)
-    private String name;   
-    
-    @Column (nullable= false, unique = true)
-    private String serialNumber;
-    
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private String manufacturer;
+	@PrePersist
+	protected void onCreate() {
+		createdOn = new Date();
+	}
 
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private String model;
-    
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private String osName;
-    
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private String osVersion;
-    
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private String osServicePack;
-    
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private long memory;
-    
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private String hdd;
-    
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private String processorName;
-    
-    @Column (nullable= false,columnDefinition = "TEXT")
-    private long processorCount;
-    
-    @Column (nullable= true,columnDefinition = "TEXT")
-    private java.sql.Date acquisitionDate;
-    
-    @Column (nullable= true,columnDefinition = "TEXT")
-    private double acquisitionCost;
-    
-    @Column (nullable= true,columnDefinition = "TEXT")
-    private String warrantyProvider;
-    
-    @Column (nullable= true,columnDefinition = "TEXT")
-    private java.sql.Date warrantyExpirationDate;
-     
-    @ManyToOne()
-    @JoinColumn(name="office_id", nullable = false)
-    private Office office;
+	@Column (nullable= false, unique = true)
+	private String name;   
 
-    @ManyToOne()
-    @JoinColumn(name="assetType_id", nullable = true)
-    private AssetType assetType;
+	@Column (nullable= false, unique = true)
+	private String serialNumber;
 
-    @ManyToOne()
-    @JoinColumn(name="assetStatus_id", nullable = true)
-    private AssetStatus assetStatus;   
-  
-    public long getId() {
+	@Column (nullable= false,columnDefinition = "TEXT")
+	private String manufacturer;
+
+	@Column (nullable= false,columnDefinition = "TEXT")
+	private String model;
+
+	@Column (nullable= false,columnDefinition = "TEXT")
+	private String osName;
+
+	@Column (nullable= false,columnDefinition = "TEXT")
+	private String osVersion;
+
+	@Column (nullable= false,columnDefinition = "TEXT")
+	private String osServicePack;
+
+	@Column (nullable= false,columnDefinition = "TEXT")
+	private long memory;
+
+	@Column (nullable= false,columnDefinition = "TEXT")
+	private String hdd;
+
+	@Column (nullable= false,columnDefinition = "TEXT")
+	private String processorName;
+
+	@Column (nullable= false,columnDefinition = "TEXT")
+	private long processorCount;
+
+	@Column (nullable= true,columnDefinition = "TEXT")
+	private java.sql.Date acquisitionDate;
+
+	@Column (nullable= true,columnDefinition = "TEXT")
+	private double acquisitionCost;
+
+	@Column (nullable= true,columnDefinition = "TEXT")
+	private String warrantyProvider;
+
+	@Column (nullable= true,columnDefinition = "TEXT")
+	private java.sql.Date warrantyExpirationDate;
+
+	@ManyToOne()
+	@JoinColumn(name="office_id", nullable = false)
+	private Office office;
+
+	@ManyToOne()
+	@JoinColumn(name="assetType_id", nullable = true)
+	private AssetType assetType;
+
+	@ManyToOne()
+	@JoinColumn(name="assetStatus_id", nullable = true)
+	private AssetStatus assetStatus;   
+
+	public long getId() {
 		return id;
 	}
 
@@ -256,8 +248,8 @@ public class Inventory
 	}
 
 	public Inventory()
-    {
-    }
+	{
+	}
 
 	public Inventory(String name, String serialNumber, String manufacturer, String model,
 			String osName, String osVersion, String osServicePack, long memory, String hdd, String processorName,
@@ -304,6 +296,6 @@ public class Inventory
 		this.assetType = assetType;
 		this.assetStatus = assetStatus;
 	}
-	
-	
+
+
 }

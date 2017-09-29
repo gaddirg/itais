@@ -28,7 +28,7 @@
 					<li>
 					  <a href="#" >
 						<span class="glyphicon glyphicon-user" /> 
-						<span th:text ="|${#authentication.getPrincipal().getUser().getFirstName()} ${#authentication.getPrincipal().getUser().getLastName()}|" /> 
+						<span th:text ="${#authentication.getPrincipal().getUser().getFirstName()}" /> 
 						</a>
 					</li>
                 </ul>
@@ -48,7 +48,7 @@
                     <a href="/"><span class="glyphicon glyphicon-cog"/> Dashboard</a>
                 </li>
                 <li>
-                    <a href="/office/main"><span class="glyphicon glyphicon-home"/> Office Branches</a>
+                    <a href="/office/main"><span class="glyphicon glyphicon-stats"/> Office Branches</a>
                 </li>
                 <li>
                     <a href="/inventory/main"><span class="glyphicon glyphicon-file"/> Inventory</a>
@@ -57,7 +57,7 @@
                     <a href="/user/main"><span class="glyphicon glyphicon-user"/> User Accounts</a>
                 </li>
                 <li>
-                    <a href="/user/main"><span class="glyphicon glyphicon-wrench"/> Options</a>
+                    <a href="#"><span class="glyphicon glyphicon-cog"/> Options</a>
                 </li>
                 <li>
                     <a href="#"><span class="glyphicon glyphicon-info-sign"/> About</a>

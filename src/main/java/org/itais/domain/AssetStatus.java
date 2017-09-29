@@ -16,16 +16,16 @@ import javax.persistence.OneToMany;
 public class AssetStatus
 {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id
-    private long id;
-    
-    private String status;
-   
-    @OneToMany(mappedBy="assetStatus", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    private Set<Inventory> inventories = new HashSet<Inventory>();
-    
-    public Set<Inventory> getInventories() {
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	private long id;
+
+	private String status;
+
+	@OneToMany(mappedBy="assetStatus", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	private Set<Inventory> inventories = new HashSet<Inventory>();
+
+	public Set<Inventory> getInventories() {
 		return inventories;
 	}
 
@@ -34,37 +34,37 @@ public class AssetStatus
 	}
 
 
-    public AssetStatus()
-    {
-	super();
-    }
+	public AssetStatus()
+	{
+		super();
+	}
 
-    public AssetStatus(final String status)
-    {
-	super();
-	this.status = status;
-    }
+	public AssetStatus(final String status)
+	{
+		super();
+		this.status = status;
+	}
 
-    //
-    public long getId()
-    {
-        return id;
-    }
+	//
+	public long getId()
+	{
+		return id;
+	}
 
-    public void setId(long id)
-    {
-        this.id = id;
-    }
+	public void setId(long id)
+	{
+		this.id = id;
+	}
 
-    public String getStatus()
-    {
-        return status;
-    }
+	public String getStatus()
+	{
+		return status;
+	}
 
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
-  
+	public void setStatus(String status)
+	{
+		this.status = status;
+	}
+
 
 }

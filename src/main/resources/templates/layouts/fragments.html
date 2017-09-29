@@ -106,7 +106,7 @@
   <body>
  
 	<div th:fragment="script-navbar"> 
-		<script>
+		<script type="text/javascript" th:inline="javascript">
 	    $("#menu-toggle").click(function(e) {
 	        e.preventDefault();
 	        $("#wrapper").toggleClass("toggled");
