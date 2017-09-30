@@ -29,16 +29,16 @@
 						<h2 class="page-header">
 							Inventory
 							<div class="btn-group pull-right">
-								<a href="/inventory/create" type="button" class="btn btn-primary"><span
+								<a href="/inventory/create" type="button" class="btn btn-default"><span
 									class="glyphicon glyphicon-pencil" /> Create</a>
-								<a href="/inventory/scanqr" type="button" class="btn btn-primary"><span
+								<a href="/inventory/scanqr" type="button" class="btn btn-default"><span
 									class="glyphicon glyphicon-qrcode" /> Scan QR Code</a>	
-								<a href="/inventory/upload" type="button" class="btn btn-primary"><span
+								<a href="/inventory/upload" type="button" class="btn btn-default"><span
 									class="glyphicon glyphicon-open-file" /> Upload from CSV</a> 
 							</div>
 						</h2>
 
-						<table class="table table-striped table-bordered" width="100%" cellspacing="0" id="tableInventory">
+						<table class="table table-striped table-bordered" width="100%" cellspacing="0" id="dataTable">
 							<thead>
 								<tr>
 									<th>Name</th>
@@ -92,43 +92,33 @@
     </div>
     <!-- /#wrapper -->
 
-
-
-
 	<div th:replace="layouts/fragments :: script-datatable"></div>
 	<div th:replace="layouts/fragments :: script-navbar"></div>
-	
-	<script>
-	$(document).ready(function() {
-	    $('#tableInventory').DataTable( {
-	        "scrollX": true,
-	        dom: 'Bfrtip',
-	        buttons: [
-	        	'print',
-	            'copyHtml5',
-	            {
-	                extend: 'excelHtml5',
-	                title: 'Inventory List'
-	            },
-	            {
-	                extend: 'csvHtml5',
-	                title: 'Inventory List'
-	            },
-	            {
-	                extend: 'pdfHtml5',
-	                orientation: 'landscape',
-	                pageSize: 'LEGAL',
-	                title: 'Inventory List'
-	            },
-	            'colvis'
-	        ]
-	    } );
-	    
-	    table.buttons().container()
-        .appendTo( '#example_wrapper .col-sm-6:eq(0)' );
-	    
-	} );
-	</script>
+
+		<script type="text/javascript" th:inline="javascript">
+			$(document).ready(
+					function() {
+						$('#dataTable').DataTable({
+							"scrollX" : true,
+							dom : 'Bfrtip',
+							buttons : [ 'print', 'copyHtml5', {
+								extend : 'excelHtml5',
+								title : 'Inventory List'
+							}, {
+								extend : 'csvHtml5',
+								title : 'Inventory List'
+							}, {
+								extend : 'pdfHtml5',
+								orientation : 'landscape',
+								pageSize : 'LEGAL',
+								title : 'Inventory List'
+							}, 'colvis' ]
+						});
+
+						table.buttons().container().appendTo(
+								'#example_wrapper .col-sm-6:eq(0)');
+					});
+		</script>
 
 </body>
 </html>

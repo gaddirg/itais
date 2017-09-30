@@ -3,131 +3,141 @@
 
 <head th:replace="layouts/fragments :: head-bootstrap-core"></head>
 <head th:replace="layouts/fragments :: head-custom-css"></head>
-
 <style>
-
-.table-fixed thead {
-  width: 97%;
-}
-.table-fixed tbody {
-  overflow-y: auto;
-  width: 100%;
-  max-height: 200px;
-  
-}
-.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
-  display: block;
-  width: 100%;
-}
-.table-fixed tbody td, .table-fixed thead > tr> th {
-  float: left;
-  border-bottom-width: 0;
-  width:100%;
-}
-
-.alert {
-  margin-bottom: 1px;
-  height: 20px;
-  line-height:20px;
-  padding:0px 10px;
-}
+	.table>tbody>tr>td:first-child {
+		font-weight: bold;
+	}
 </style>
 
 <body>
 
 	<div th:replace="layouts/navigation:: nav-top"></div>
-	
+
 	<div id="wrapper">
-	
+
 		<div th:replace="layouts/navigation:: nav-side"></div>
-	
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-	        			<!-- Page Content -->
-		
-		
-						<h2 class="page-header">
-						<span class="glyphicon glyphicon-folder-open"/>
-						Repository Details</h2>
-			
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4>
-									<p th:text="${offices.name}" />
-								</h4>
+
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12" id="print-content">
+						<!-- Page Content -->
+
+
+						<h2 class="page-header">Office Branch Details</h2>
+
+						<div class="row">
+							<div class="col-md-8">
+
+								<div class="panel panel-default panel-body">
+
+									<table class="table table-striped">
+										<tr>
+											<td>Office Branch Name:</td>
+											<td><span th:text="${offices.name}" /></td>
+										</tr>
+										<tr>
+											<td>Location:</td>
+											<td><span th:text="${offices.location}" /></td>
+										</tr>
+										<tr>
+											<td>Description:</td>
+											<td><span th:text="${offices.description}" /></td>
+										</tr>
+										<tr>
+											<td>Created by:</td>
+											<td><span
+												th:text="|${offices.creator.firstName} ${offices.creator.lastName}|" /></td>
+										</tr>
+										<tr>
+											<td>Date Created:</td>
+											<td><span
+												th:text="${#calendars.format(offices.createdOn,'dd/MM/yyyy hh:mm:ss a')}" /></td>
+										</tr>
+										<tr>
+											<td>Status:</td>
+											<td><span th:if="${offices.status} == true">Online</span>
+												<span th:if="${offices.status} == false">Offline</span></td>
+										</tr>
+										<tr>
+											<td>Inventory Size:</td>
+											<td><span th:text="${offices.inventories.size()}" /></td>
+										</tr>
+									</table>
+
+
+								</div>
 							</div>
-			
-							
-							<div class="panel-body">
-			
-								<div>
-									<label class="col-md-2 control-label">Location:</label>
-									<div class="col-md-10">
-										<p th:text="${offices.location}" />
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<a type="button" class="btn btn-default"
+							th:href="|@{/office/main}"><span
+							class="glyphicon glyphicon-backward" /> Back</a> <a type="button"
+							class="btn btn-default"
+							th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
+							OR ${#authentication.getPrincipal().getUser().getOffice().getName()} == ${offices.name})"
+							th:href="|@{/office/edit/}${offices.id}|"><span
+							class="glyphicon glyphicon-edit" /> Edit</a> <a
+							th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')})"
+							type="button" class="btn btn-default" data-toggle="modal"
+							data-target="#deleteModal"> <span
+							class="glyphicon glyphicon-trash" /> Delete
+						</a> <a type="button" class="btn btn-default"
+							onclick="printDiv('print-content')"> <span
+							class="glyphicon glyphicon-print" /> Print
+						</a>
+
+					</div>
+
+					<!-- Modal -->
+						<div class="modal fade" id="deleteModal" role="dialog">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Warning</h4>
+									</div>
+									<div class="modal-body">
+										<p>Are you sure you want to delete this record?</p>
+									</div>
+									<div class="modal-footer">
+										<a th:href="|@{/office/deleteconfirmed/}${offices.id}|"
+											type="button" class="btn btn-default"><span
+											class="glyphicon glyphicon-ok" /> Yes</a> <a type="button"
+											class="btn btn-primary" data-dismiss="modal"><span
+											class="glyphicon glyphicon-remove" /> No</a> 
 									</div>
 								</div>
-			
-								<div>
-									<label class="col-md-2 control-label">Description:</label>
-									<div class="col-md-10">
-										<p th:text="${offices.description}" />
-									</div>
-								</div>
-			
-			
-								<div>
-									<label class="col-md-2 control-label">Date Created:</label>
-									<div class="col-md-10">
-										<p
-											th:text="${#calendars.format(offices.createdOn,'dd/MM/yyyy hh:mm:ss a')}" />
-									</div>
-								</div>
-			
-								<div>
-									<label class="col-md-2 control-label">Created by:</label>
-									<div class="col-md-10">
-										<p th:text="|${offices.creator.firstName} ${offices.creator.lastName}|" />
-									</div>
-								</div>
-			
-								<div>
-									<label class="col-md-2 control-label">Status:</label>
-									<div class="col-md-10">
-										<p th:if="${offices.status} == true">Online</p>
-										<p th:if="${offices.status} == false">Offline</p>
-									</div>
-								</div>
-								
-								<div>
-									<label class="col-md-2 control-label">Inventory Size:</label>
-									<div class="col-md-10">
-										<p th:text="${offices.inventories.size()}" />
-									</div>
-								</div>
-			
 							</div>
-								
-						</div>
-			
-						<div class="col-sm-6">
-							<a type="button" class="btn btn-default" th:href="|@{/office/main}"><span
-								class="glyphicon glyphicon-backward" /> Back</a>
 						</div>
 
 
 
-        				<!-- /#page-content-wrapper -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /#wrapper -->
-   
+						<!-- /#page-content-wrapper -->
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /#wrapper -->
+
 	<div th:replace="layouts/fragments :: script-bootstrap-core"></div>
 	<div th:replace="layouts/fragments :: script-navbar"></div>
+
+	<script type="text/javascript" th:inline="javascript">
+		
+		//Print content
+		function printDiv(divName) {
+			 var printContents = document.getElementById(divName).innerHTML;
+			 w=window.open();
+			 w.document.write(printContents);
+			 w.print();
+			 w.close();
+		}
+	
+	</script>
 
 </body>
 

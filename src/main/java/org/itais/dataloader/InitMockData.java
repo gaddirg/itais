@@ -45,9 +45,9 @@ public class InitMockData
 		officeRepository.save(office4);		
 		
 		
-		final User user2 = new User("r1_user@company.org","r1","Mark","Gomez",officeRepository.findByName("Head Office"),roleRepository.findByName("ROLE_USER"));
+		final User user2 = new User("r1_user@company.org","r1","Mark","Gomez",officeRepository.findByName("Canberra Branch"),roleRepository.findByName("ROLE_USER"));
 		userRepository.save(user2);
-		final User user3 = new User("r2_user@company.org","r2","Katy","Jones",officeRepository.findByName("Region 1"),roleRepository.findByName("ROLE_USER"));
+		final User user3 = new User("r2_user@company.org","r2","Katy","Jones",officeRepository.findByName("Sydney Branch"),roleRepository.findByName("ROLE_USER"));
 		userRepository.save(user3);
 
 		java.sql.Date date1; 
@@ -55,12 +55,12 @@ public class InitMockData
 		
 			final Inventory inventory1 = new Inventory("DomainController01", "SN03929382", "HP", "model123456",
 					"Windows Server 2012 R2", "6.2", "Service Pack 1", 10240, "C: 50000", "Intel(R) Core(TM) i5-4200U CPU @ 1.60GHz",
-					1, date1, 5000.00, "HP", date1, officeRepository.findById((long) 1), assetTypeRepository.findByType("Server"), 
+					1, date1, 5000.00, "HP", date1, officeRepository.findByName("Canberra Branch"), assetTypeRepository.findByType("Server"), 
 					assetStatusRepository.findByStatus("Operational"));
 			inventoryRepository.save(inventory1);
 			final Inventory inventory2 = new Inventory("Database01", "SN083827373", "Dell", "mode985857848",
 					"Windows Server 2008 R2", "10", "Service Pack 3", 20240, "C: 100000; E: 80000", "Intel(R) Core(TM) i7-4200U CPU @ 2.00GHz",
-					2, date1, 80230.00, "Dell", date1, officeRepository.findById((long) 2), assetTypeRepository.findByType("Virtual Machine"),
+					2, date1, 80230.00, "Dell", date1, officeRepository.findByName("Sydney Branch"), assetTypeRepository.findByType("Virtual Machine"),
 					assetStatusRepository.findByStatus("Operational"));
 			inventoryRepository.save(inventory2);
 			

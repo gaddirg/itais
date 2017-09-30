@@ -26,7 +26,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
 					<li>
-					  <a href="#" >
+					  <a th:href="|@{/user/edit/}${#authentication.getPrincipal().getUser().getId()}|" >
 						<span class="glyphicon glyphicon-user" /> 
 						<span th:text ="${#authentication.getPrincipal().getUser().getFirstName()}" /> 
 						</a>
@@ -57,14 +57,14 @@
                     <a href="/user/main"><span class="glyphicon glyphicon-user"/> User Accounts</a>
                 </li>
                 <li>
-                    <a href="#"><span class="glyphicon glyphicon-cog"/> Options</a>
+                    <a href="/options"><span class="glyphicon glyphicon-cog"/> Options</a>
                 </li>
                 <li>
-                    <a href="#"><span class="glyphicon glyphicon-info-sign"/> About</a>
+                    <a href="/about"><span class="glyphicon glyphicon-info-sign"/> About</a>
                 </li>
 				
                 <li>
-                    <a href="#"><span class="glyphicon glyphicon-question-sign"/> Help</a>
+                    <a href="/help"><span class="glyphicon glyphicon-question-sign"/> Help</a>
                 </li>
                 <li>
                 

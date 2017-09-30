@@ -15,6 +15,7 @@ public interface UserService
     public List<User> list();
     public User save(User user);
 	public void delete(Long id);
+	boolean isAccountOwner(String currUser, String email);
 
     
 }

@@ -7,6 +7,8 @@ import org.itais.service.OfficeService;
 import org.itais.service.RoleService;
 import org.itais.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,7 +49,7 @@ public class UserController
 		this.roleService = roleService;
 	}
 
-
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/user/create")
 	public String UserCreate(HttpServletRequest request, Model model)
 	{
@@ -89,14 +91,24 @@ public class UserController
 	 * @param 
 	 * @return 
 	 */
+	
 	@RequestMapping("/user/edit/{id}")
 	public String UserEdit(@PathVariable Long id, Model model, HttpServletRequest request)
 	{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-		model.addAttribute("roles", roleService.list());
+		
+		if (request.isUserInRole("ROLE_ADMIN"))	     
+		{
+			model.addAttribute("roles", roleService.list());
+			model.addAttribute("offices", officeService.listForSA());			
+		}
+		else
+		{
+			model.addAttribute("roles", userService.findById(id).getRole());
+			model.addAttribute("offices", userService.findById(id).getOffice());			
+		}		
 		model.addAttribute("users", userService.findById(id));
-		model.addAttribute("offices", officeService.listForSA());	
+	
 		return "user/create";
 	}
 
@@ -134,6 +146,7 @@ public class UserController
 	 * @param 
 	 * @return 
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/user/delete/{id}")
 	public String UserDelete(@PathVariable Long id, Model model)
 	{
@@ -146,7 +159,8 @@ public class UserController
 	 * @param 
 	 * @param 
 	 * @return 
-	 */    
+	 */ 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/user/deleteconfirmed/{id}")
 	public RedirectView userDeleteConfirmed(@PathVariable Long id, Model model)
 	{
@@ -154,4 +168,5 @@ public class UserController
 		return new RedirectView("/user/main");
 	}
 
+	
 }

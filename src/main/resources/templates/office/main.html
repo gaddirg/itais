@@ -5,37 +5,6 @@
 	<head th:replace="layouts/fragments :: head-datatable"></head>
 	<head th:replace="layouts/fragments :: head-custom-css"></head>
 	
-	<style>
-	
-	/* DataTable */
-table.dataTable {
-  width: 100%;
-  clear: both;
-  }
-  
-  table.dataTable thead td {
-    border-top: 0px ;
-    border-bottom: 0px ; 
-    margin: 0 !important;
-	padding: 0 !important;    
-    }
-    
-  table.dataTable tbody td {
-    border-top: 0px;
-    border-bottom: 0px;
-    margin: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    }
-
- .panel-body.no-margin {
-	padding: 10px !important;
-	margin: 0 !important;
-	}
-
-	
-	
-	</style>
 
 <body>
 
@@ -48,63 +17,44 @@ table.dataTable {
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" id="print-content">
 	        			<!-- Page Content -->
 	
 		
 						<h2 class="page-header">
-							Office Branches <a th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}"
-								href="/office/create" class="btn btn-primary pull-right"
-								role="button"><span class="glyphicon glyphicon-pencil" /> Create</a>
+							Office Branches 
+							<a th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}" href="/office/create" 
+							class="btn btn-default pull-right" role="button"><span class="glyphicon glyphicon-pencil" /> Create</a>
 						</h2>
 						
-								<table class="table table-responsive" id="tableOffice">
-									<thead>
-										<tr>
-											<th style="text-align: right">Ascending|Descending Order</th>
-										</tr>
-									</thead>
-									<tbody>
+							<table class="table table-striped table-bordered" width="100%" cellspacing="0" id="dataTable">
+								<thead>
+									<tr>
+										<th>Office</th>
+										<th>Location</th>
+										<th>Description</th>									
+										<th>Status</th>
+										<th>Date Created</th>
+									</tr>
+								</thead>									
+								<tbody>
 										<th:block th:each="office : ${offices}">
-											<tr>
-												<td> 
-												<div class="panel panel-body panel-default no-margin">
-													<span class="label label-date pull-right">
-				 										<span class="glyphicon glyphicon-calendar"/>
-				 										<span th:text="${#calendars.format(office.createdOn,'dd/MM/yyyy')}" /> 
-													</span>
-			
-													<a class="link-title" th:href="|@{/office/read/}${office.id}|"><h4 th:text="${office.name}" /></a>
-													<div th:text="${office.location}" />
-																				
-													<hr class="faded"/>
-													<p th:text="${office.description}" /> 
-													<hr />
-													<span class="badge badge-online pull-right" th:if="${office.status} == true" >Online</span>
-													<span class="badge badge-offline pull-right" th:if="${office.status} == false" >Offline</span>
-													
-														<div>
-															<a th:href="|@{/office/read/}${office.id}|"
-																class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"/> View</a> 
-																
-															<a th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
-																OR ${#authentication.getPrincipal().getUser().getOffice().getName()} == ${office.name})"
-																th:href="|@{/office/edit/}${office.id}|"
-																class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit" /> Edit</a> 
-																
-															<a th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')})"
-																th:href="|@{/office/delete/}${office.id}|"
-																class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit" /> Delete</a> 
-			
-															<a  th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
-																OR ${#authentication.getPrincipal().getUser().getOffice().getName()} == ${office.name})"
-																th:href="|@{/callforproposals/create/}${office.id}|"
-																class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"/> Add Inventory</a>
-														</div>
-													</div>
-												</td>
-			
-											</tr>
+									<tr>
+										<td> 
+											<a class="link-title" th:href="|@{/office/read/}${office.id}|">
+											<span th:text="${office.name}" /></a>
+										</td>
+										<td th:text="${office.location}" />
+										<td th:text="${office.description}" />
+										<td>
+											<span th:if="${office.status} == true" >Online</span>
+											<span th:if="${office.status} == false" >Offline</span>
+										</td>
+										<td th:text="${#calendars.format(office.createdOn,'dd/MM/yyyy')}">
+										</td>
+									</tr>
+									
+				
 										</th:block>
 									</tbody>
 								</table>
@@ -119,46 +69,30 @@ table.dataTable {
     <!-- /#wrapper -->
 
 
-
-
 	<div th:replace="layouts/fragments :: script-datatable"></div>
 	<div th:replace="layouts/fragments :: script-navbar"></div>
 
-	
-		<script th:inline="javascript">
-		//DataTable Settings
-		$('#tableOffice').dataTable( {
-			//<![CDATA[ 
-			 dom: "<'row'<'col-sm-6'<'toolbar-button'>><'col-sm-6'f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-4'l><'col-sm-8'p>>"
-			//]]>
-		});
-		
-		$("div.toolbar-button").html(
-			 '<div class="btn-group" data-toggle="buttons" style="margin-bottom:15px;">' +
-			  '<label class="btn btn-default active">' +
-			  '<input type="radio" name="options" id="all" autocomplete="off" checked="checked" /><span class="glyphicon glyphicon-plus" />' +
-			  ' Show All</label>' +
-			  '<label class="btn btn-default">' +
-			  '<input type="radio" name="options" id="owned" autocomplete="off" /><span class="glyphicon glyphicon-minus" />' +
-			  ' Show Owned</label></div>');
-		
-		$(document).ready(function() {
-  	  		var table = $('#customTable').DataTable();
-  	  		var loggedInUser=[[|${#authentication.getPrincipal().getUser().getFirstName()} ${#authentication.getPrincipal().getUser().getLastName()}|]];
+		<script type="text/javascript" th:inline="javascript">
+			$(document).ready(
+					function() {
+						$('#dataTable').DataTable({
+							"scrollX" : true,
+							dom : 'Bfrtip',
+							buttons : [ 'print', 'copyHtml5', {
+								extend : 'excelHtml5',
+								title : 'Office List'
+							}, {
+								extend : 'csvHtml5',
+								title : 'Office List'
+							}, {
+								extend : 'pdfHtml5',
+								title : 'Office List'
+							}, 'colvis' ]
+						});
 
-  	  	$('#owned').change(function() {
-  			 table
-  			    .columns( 0 )
-  			    .search(loggedInUser)
-  			    .draw();
-  		});
-	  	$('#all').change(function() {
-  			 table
-  			    .columns( 0 )
-  			    .search("")
-  			    .draw();
-  		});
-		});
+						table.buttons().container().appendTo(
+								'#example_wrapper .col-sm-6:eq(0)');
+					});
 		</script>
 	
 

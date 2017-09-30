@@ -64,4 +64,11 @@ public class UserServiceImpl implements UserService, UserDetailsService
 		userRepository.delete(id);
 	}
 
+	@Override
+	public boolean isAccountOwner(String currUser, String email) {
+		if (currUser == email)
+			return true;
+		return false;
+	}
+	
 }

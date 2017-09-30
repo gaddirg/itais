@@ -2,6 +2,7 @@ package org.itais.dataloader;
 
 import org.itais.domain.AssetStatus;
 import org.itais.domain.AssetType;
+import org.itais.domain.Office;
 import org.itais.domain.Role;
 import org.itais.domain.User;
 import org.itais.repository.AssetStatusRepository;
@@ -56,7 +57,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		createRoleIfNotFound("ROLE_USER");
 
 		createAdminIfNotFound("admin@company.org");
-
+		
 		createAssetTypeIfNotFound("Server");
 		createAssetTypeIfNotFound("Virtual Machine Host");
 		createAssetTypeIfNotFound("Virtual Machine");
@@ -92,7 +93,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		User uEmail = userRepository.findByEmail(email);
 		if (uEmail == null)
 		{
-			final User admin = new User("admin@company.org","admin","Systems","Administrator",null,roleRepository.findByName("ROLE_ADMIN"));
+			final User admin = new User("admin@company.org","admin","Systems","Administrator",officeRepository.findByName("Head Office"),roleRepository.findByName("ROLE_ADMIN"));
 			userRepository.save(admin);
 		}
 		return uEmail;

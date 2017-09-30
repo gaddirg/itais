@@ -21,16 +21,14 @@
 	        			
 
 						<h2 th:if="${offices.name} == null" class="page-header">
-						<span class="glyphicon glyphicon-folder-open"/>
-						Create New Repository</h2>
+						Create Office Branch</h2>
 						<h2 th:if="${offices.name} != null" class="page-header">
-						<span class="glyphicon glyphicon-folder-open"/>
-						Update Repository</h2>
+						Update Oupdate Office Branch</h2>
 			
 						<form class="form-horizontal" th:object="${offices}"
 							th:action="@{/office/create}" method="post">
 			
-							<div class="well well-lg">
+							<div class="panel panel-default panel-body ">
 			
 								<input type="hidden" th:field="*{id}" /> <input type="hidden"
 									th:field="*{creator}" />

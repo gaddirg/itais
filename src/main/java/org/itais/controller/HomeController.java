@@ -82,7 +82,24 @@ public class HomeController
 		return "index";
 	}
     
-    
+	@RequestMapping("/help")
+	public String Help()
+	{
+		return "help";
+	}
+	
+	@RequestMapping("/about")
+	public String About()
+	{
+		return "about";
+	}	
+	
+	@RequestMapping("/options")
+	public String Options()
+	{
+		return "options";
+	}		
+	
 	public static String getOfficeJsonAsString(List<Office> offices)
 	{
 		JSONObject obj = new JSONObject();

@@ -8,6 +8,8 @@ import org.itais.service.OfficeService;
 import org.itais.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,6 +71,8 @@ public class UploadController {
 	@PostMapping("/inventory/upload") 
 	public String singleFileUpload(@RequestParam("file") MultipartFile file,
 			RedirectAttributes redirectAttributes) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		if (file.isEmpty()) {
 			redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
@@ -88,14 +92,34 @@ public class UploadController {
 			String[] line;
 			//skip header
 			line = reader.readNext();
+			
 			while ((line = reader.readNext()) != null) {
 
-				final Inventory inv = new Inventory(line[0], line[1], line[2], line[3], line[4],
+				if(inventoryService.findBySerialNumber(line[1]) == null) {
+				
+					final Inventory inv = new Inventory(line[0], line[1], line[2], line[3], line[4],
 						line[5], line[6], line[7],Long.parseLong(line[8]), Long.parseLong(line[9]), line[10],
-						officeService.findById((long) 1), assetTypeService.findByType(line[11]),
+						userService.findByEmail(auth.getName()).getOffice(), assetTypeService.findByType(line[11]),
 						assetStatusService.findByStatus("Operational"));
-				inventoryService.save(inv);
-
+					inventoryService.save(inv);
+				} else {
+					final Inventory inv = inventoryService.findBySerialNumber(line[1]);
+					inv.setName(line[0]);
+					inv.setManufacturer(line[2]);
+					inv.setModel(line[3]);
+					inv.setOsName(line[4]);
+					inv.setOsVersion(line[5]);
+					inv.setOsServicePack(line[6]);
+					inv.setProcessorName(line[7]);
+					inv.setProcessorCount(Long.parseLong(line[8]));
+					inv.setMemory(Long.parseLong(line[9]));
+					inv.setHdd(line[10]);
+					inv.setAssetType(assetTypeService.findByType(line[11]));
+					inv.setOffice(userService.findByEmail(auth.getName()).getOffice());
+					inv.setAssetStatus(assetStatusService.findByStatus("Operational"));
+					inventoryService.save(inv);
+				}
+	
 			}
 			reader.close();
 			File fileToDelete = new File(UPLOADED_FOLDER + file.getOriginalFilename());

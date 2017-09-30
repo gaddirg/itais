@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+	<head th:replace="layouts/fragments :: head-bootstrap-core"></head>
+	<head th:replace="layouts/fragments :: head-custom-css"></head>
+	<div th:replace="layouts/fragments :: script-chart"></div>
+<body>
+
+	<div th:replace="layouts/navigation:: nav-top"></div>
+	
+	<div id="wrapper">
+	
+		<div th:replace="layouts/navigation:: nav-side"></div>
+	
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+	        			<!-- Page Content -->
+
+
+                        <h2 class="page-header">Options</h2>
+			            <div class="row">
+			            	<div class="col-md-12">
+			                	Not yet available...
+			                </div>
+			        	</div>
+
+        				<!-- /#page-content-wrapper -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+   
+	<div th:replace="layouts/fragments :: script-bootstrap-core"></div>
+	<div th:replace="layouts/fragments :: script-navbar"></div>
+
+
+</body>
+</html>

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<head th:replace="layouts/fragments :: head-bootstrap-core"></head>
-	<head th:replace="layouts/fragments :: head-custom-css"></head>
+<head th:replace="layouts/fragments :: head-bootstrap-core"></head>
+<head th:replace="layouts/fragments :: head-custom-css"></head>
 
-	<style>
-		.table > tbody > tr > td:first-child {
+<style>
+	.table>tbody>tr>td:first-child {
 		font-weight: bold;
-}
-	
-	</style>
+	}
+</style>
 
 <body>
 
@@ -48,13 +47,11 @@
 										</tr>
 										<tr>
 											<td>Serial Number:</td>
-											<td><span th:text="${inventories.serialNumber}" />
-											</td>
+											<td><span th:text="${inventories.serialNumber}" /></td>
 										</tr>
 										<tr>
 											<td>Machine Type:</td>
-											<td><span th:text="${inventories.assetType.type}" />
-											</td>
+											<td><span th:text="${inventories.assetType.type}" /></td>
 										</tr>
 										<tr>
 											<td>Status:</td>
@@ -63,48 +60,41 @@
 										</tr>
 										<tr>
 											<td>Manufacturer:</td>
-											<td><span th:text="${inventories.manufacturer}" />
-											</td>
+											<td><span th:text="${inventories.manufacturer}" /></td>
 										</tr>
 										<tr>
 											<td>Model:</td>
-											<td><span th:text="${inventories.model}" />
-											</td>
+											<td><span th:text="${inventories.model}" /></td>
 										</tr>
 										<tr>
 											<td>Operating System:</td>
-											<td><span th:text="${inventories.osName}" />
-											</td>
+											<td><span th:text="${inventories.osName}" /></td>
 										</tr>
 										<tr>
 											<td>Version:</td>
-											<td><span th:text="${inventories.osVersion}" />
-											</td>
+											<td><span th:text="${inventories.osVersion}" /></td>
 										</tr>
 										<tr>
 											<td>Service Pack:</td>
-											<td><span th:text="${inventories.osServicePack}" />
-											</td>
+											<td><span th:text="${inventories.osServicePack}" /></td>
 										</tr>
 										<tr>
 											<td>Memory (MB):</td>
-											<td><span th:text="${#numbers.formatInteger(inventories.memory,1,'COMMA')}" />
+											<td><span
+												th:text="${#numbers.formatInteger(inventories.memory,1,'COMMA')}" />
 											</td>
 										</tr>
 										<tr>
 											<td>Disk Drive/s:</td>
-											<td><span th:text="${inventories.hdd}" />
-											</td>
+											<td><span th:text="${inventories.hdd}" /></td>
 										</tr>
 										<tr>
 											<td>Processor:</td>
-											<td><span th:text="${inventories.processorName}" />
-											</td>
+											<td><span th:text="${inventories.processorName}" /></td>
 										</tr>
 										<tr>
 											<td>Processor Count:</td>
-											<td><span th:text="${inventories.processorCount}" />
-											</td>
+											<td><span th:text="${inventories.processorCount}" /></td>
 										</tr>
 										<tr>
 											<td>Acquisition Date:</td>
@@ -125,7 +115,8 @@
 										</tr>
 										<tr>
 											<td>Warranty Expiration:</td>
-											<td><span th:if="${inventories.warrantyExpirationDate} != null"
+											<td><span
+												th:if="${inventories.warrantyExpirationDate} != null"
 												th:text="${#calendars.format(inventories.warrantyExpirationDate,'dd MMMM yyyy')}" />
 											</td>
 										</tr>
@@ -140,8 +131,8 @@
 
 							</div>
 						</div>
-					
-					<!-- Page content -->
+
+						<!-- Page content -->
 					</div>
 
 					<div class="col-sm-6">
