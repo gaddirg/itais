@@ -30,7 +30,6 @@ public class OfficeController
 
 	private OfficeService officeService;
 	private UserService userService;
-	private InventoryService inventoryService;
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -48,7 +47,6 @@ public class OfficeController
 		super();
 		this.officeService = officeService;
 		this.userService = userService;
-		this.inventoryService = inventoryService;
 	}
 
 	/**
@@ -99,6 +97,9 @@ public class OfficeController
 	@RequestMapping("/office/edit/{id}")
 	public String officeEdit(@PathVariable Long id, Model model)
 	{
+		if(officeService.findById(id)==null)
+			return "notfound";
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("offices", new Office());
 		List<User> users = userService.list();
@@ -112,6 +113,9 @@ public class OfficeController
 	@RequestMapping("/office/read/{id}")
 	public String officeRead(@PathVariable Long id, Model model)
 	{
+		if(officeService.findById(id)==null)
+			return "notfound";
+		
 		model.addAttribute("offices", officeService.findById(id));
 		return "office/read";
 	}
@@ -125,6 +129,9 @@ public class OfficeController
 	@RequestMapping("/office/delete/{id}")
 	public String officeDelete(@PathVariable Long id, Model model)
 	{
+		if(officeService.findById(id)==null)
+			return "notfound";
+		
 		model.addAttribute("offices", officeService.findById(id));
 		return "office/delete";
 	}

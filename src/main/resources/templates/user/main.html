@@ -11,6 +11,35 @@
 	    text-align: center;
 	    }
 	</style>
+	
+	<div th:replace="layouts/fragments :: script-datatable"></div>
+
+	<script type="text/javascript" language="javascript" class="init">
+			
+			$(document).ready(
+					function() {
+						$('#dataTable').DataTable({
+							"scrollX" : true,
+							dom : 'Bfrtip',
+							buttons : [ 'print', 'copyHtml5', {
+								extend : 'excelHtml5',
+								title : 'User Account List'
+							}, {
+								extend : 'csvHtml5',
+								title : 'User Account List'
+							}, {
+								extend : 'pdfHtml5',
+								title : 'User Account List'
+							}, 'colvis' ]
+						});
+
+						table.buttons().container().appendTo(
+								'#example_wrapper .col-sm-6:eq(0)');
+					});
+	</script>
+	
+	
+	
 
 <body>
 	<div th:replace="layouts/navigation:: nav-top"></div>
@@ -65,32 +94,7 @@
     </div>
     <!-- /#wrapper -->
 
-	<div th:replace="layouts/fragments :: script-datatable"></div>
 	<div th:replace="layouts/fragments :: script-navbar"></div>
-
-		<script type="text/javascript" th:inline="javascript">
-			$(document).ready(
-					function() {
-						$('#dataTable').DataTable({
-							"scrollX" : true,
-							dom : 'Bfrtip',
-							buttons : [ 'print', 'copyHtml5', {
-								extend : 'excelHtml5',
-								title : 'User Account List'
-							}, {
-								extend : 'csvHtml5',
-								title : 'User Account List'
-							}, {
-								extend : 'pdfHtml5',
-								title : 'User Account List'
-							}, 'colvis' ]
-						});
-
-						table.buttons().container().appendTo(
-								'#example_wrapper .col-sm-6:eq(0)');
-					});
-		</script>
-
 
 </body>
 </html>

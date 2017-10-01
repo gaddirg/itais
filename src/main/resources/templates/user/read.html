@@ -64,7 +64,8 @@
 						<div class="col-md-6">
 							<a type="button" class="btn btn-default" th:href="|@{/user/main}"><span
 								class="glyphicon glyphicon-backward" /> Back</a> <a
-								th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}"
+								th:if="(${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')} 
+								OR ${#authentication.getPrincipal().getUser().getId()} == ${users.id})"
 								type="button" class="btn btn-default"
 								th:href="|@{/user/edit/}${users.id}|"><span
 								class="glyphicon glyphicon-edit" /> Edit</a> <a

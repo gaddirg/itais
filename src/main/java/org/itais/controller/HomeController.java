@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.itais.domain.AssetType;
 import org.itais.domain.Office;
 import org.itais.service.AssetTypeService;
-import org.itais.service.EmailServiceImpl;
+//import org.itais.service.EmailServiceImpl;
 import org.itais.service.InventoryService;
 import org.itais.service.OfficeService;
 import org.itais.service.UserService;
@@ -31,8 +31,8 @@ public class HomeController
     private InventoryService inventoryService;
     private AssetTypeService assetTypeService;
 
-	@Autowired
-	private EmailServiceImpl emailService;
+	//@Autowired
+	//private EmailServiceImpl emailService;
     
     @Autowired
     private UserDetailsService userDetailsService;

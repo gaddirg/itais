@@ -4,7 +4,31 @@
 	<head th:replace="layouts/fragments :: head-bootstrap-core"></head>
 	<head th:replace="layouts/fragments :: head-datatable"></head>
 	<head th:replace="layouts/fragments :: head-custom-css"></head>
-	
+
+	<div th:replace="layouts/fragments :: script-datatable"></div>
+
+	<script type="text/javascript" language="javascript" class="init">
+		$(document).ready(
+				function() {
+					$('#dataTable').DataTable({
+						"scrollX" : true,
+						dom : 'Bfrtip',
+						buttons : [ 'print', 'copyHtml5', {
+							extend : 'excelHtml5',
+							title : 'Office List'
+						}, {
+							extend : 'csvHtml5',
+							title : 'Office List'
+						}, {
+							extend : 'pdfHtml5',
+							title : 'Office List'
+						}, 'colvis' ]
+					});
+
+					table.buttons().container().appendTo(
+							'#example_wrapper .col-sm-6:eq(0)');
+				});
+	</script>	
 
 <body>
 
@@ -69,31 +93,7 @@
     <!-- /#wrapper -->
 
 
-	<div th:replace="layouts/fragments :: script-datatable"></div>
 	<div th:replace="layouts/fragments :: script-navbar"></div>
-
-		<script type="text/javascript" th:inline="javascript">
-			$(document).ready(
-					function() {
-						$('#dataTable').DataTable({
-							"scrollX" : true,
-							dom : 'Bfrtip',
-							buttons : [ 'print', 'copyHtml5', {
-								extend : 'excelHtml5',
-								title : 'Office List'
-							}, {
-								extend : 'csvHtml5',
-								title : 'Office List'
-							}, {
-								extend : 'pdfHtml5',
-								title : 'Office List'
-							}, 'colvis' ]
-						});
-
-						table.buttons().container().appendTo(
-								'#example_wrapper .col-sm-6:eq(0)');
-					});
-		</script>
 	
 
 </body>

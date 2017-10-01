@@ -12,6 +12,34 @@
 	    }
 	</style>
 
+	<div th:replace="layouts/fragments :: script-datatable"></div>
+
+	<script type="text/javascript" language="javascript" class="init">
+		$(document).ready(
+				function() {
+					$('#dataTable').DataTable({
+						"scrollX" : true,
+						dom : 'Bfrtip',
+						buttons : [ 'print', 'copyHtml5', {
+							extend : 'excelHtml5',
+							title : 'Inventory List'
+						}, {
+							extend : 'csvHtml5',
+							title : 'Inventory List'
+						}, {
+							extend : 'pdfHtml5',
+							orientation : 'landscape',
+							pageSize : 'LEGAL',
+							title : 'Inventory List'
+						}, 'colvis' ]
+					});
+
+					table.buttons().container().appendTo(
+							'#example_wrapper .col-sm-6:eq(0)');
+				});
+	</script>
+
+
 <body>
 	<div th:replace="layouts/navigation:: nav-top"></div>
 	
@@ -92,33 +120,7 @@
     </div>
     <!-- /#wrapper -->
 
-	<div th:replace="layouts/fragments :: script-datatable"></div>
 	<div th:replace="layouts/fragments :: script-navbar"></div>
-
-		<script type="text/javascript" th:inline="javascript">
-			$(document).ready(
-					function() {
-						$('#dataTable').DataTable({
-							"scrollX" : true,
-							dom : 'Bfrtip',
-							buttons : [ 'print', 'copyHtml5', {
-								extend : 'excelHtml5',
-								title : 'Inventory List'
-							}, {
-								extend : 'csvHtml5',
-								title : 'Inventory List'
-							}, {
-								extend : 'pdfHtml5',
-								orientation : 'landscape',
-								pageSize : 'LEGAL',
-								title : 'Inventory List'
-							}, 'colvis' ]
-						});
-
-						table.buttons().container().appendTo(
-								'#example_wrapper .col-sm-6:eq(0)');
-					});
-		</script>
 
 </body>
 </html>

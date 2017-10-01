@@ -59,6 +59,11 @@
 			video : document.getElementById('cameraview')
 		});
 		scanner.addListener('scan', function(content, image) {
+			if (content.includes("/")) {
+				alert("Invalid qr-code")
+				return;
+			}
+			
 			window.open("/inventory/readsn/" + content,"_self")
 			//alert(content);
 		});

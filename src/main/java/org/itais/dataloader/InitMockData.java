@@ -49,18 +49,20 @@ public class InitMockData
 		userRepository.save(user2);
 		final User user3 = new User("r2_user@company.org","r2","Katy","Jones",officeRepository.findByName("Sydney Branch"),roleRepository.findByName("ROLE_USER"));
 		userRepository.save(user3);
-
-		java.sql.Date date1; 
-		date1 = java.sql.Date.valueOf("2017-12-25");
+		
+		java.sql.Date acquisitionDate, warrantyDate1, warrantyDate2; 
+		acquisitionDate = java.sql.Date.valueOf("2017-12-25");
+		warrantyDate1 = java.sql.Date.valueOf("2017-10-01");
+		warrantyDate2 = java.sql.Date.valueOf("2017-11-01");
 		
 			final Inventory inventory1 = new Inventory("DomainController01", "SN03929382", "HP", "model123456",
 					"Windows Server 2012 R2", "6.2", "Service Pack 1", 10240, "C: 50000", "Intel(R) Core(TM) i5-4200U CPU @ 1.60GHz",
-					1, date1, 5000.00, "HP", date1, officeRepository.findByName("Canberra Branch"), assetTypeRepository.findByType("Server"), 
+					1, acquisitionDate, 5000.00, "HP", warrantyDate1, officeRepository.findByName("Canberra Branch"), assetTypeRepository.findByType("Server"), 
 					assetStatusRepository.findByStatus("Operational"));
 			inventoryRepository.save(inventory1);
 			final Inventory inventory2 = new Inventory("Database01", "SN083827373", "Dell", "mode985857848",
 					"Windows Server 2008 R2", "10", "Service Pack 3", 20240, "C: 100000; E: 80000", "Intel(R) Core(TM) i7-4200U CPU @ 2.00GHz",
-					2, date1, 80230.00, "Dell", date1, officeRepository.findByName("Sydney Branch"), assetTypeRepository.findByType("Virtual Machine"),
+					2, acquisitionDate, 80230.00, "Dell", warrantyDate2, officeRepository.findByName("Sydney Branch"), assetTypeRepository.findByType("Virtual Machine"),
 					assetStatusRepository.findByStatus("Operational"));
 			inventoryRepository.save(inventory2);
 			

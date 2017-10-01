@@ -89,7 +89,10 @@ public class InventoryController
 	@RequestMapping("/inventory/create/{id}")
 	public String InventoryCreateWithPreselectedOffice(Model model,@PathVariable Long id)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(inventoryService.findById(id)==null)
+			return "notfound";
+		
+		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("offices", Arrays.asList(officeService.findById(id)));
 		model.addAttribute("assetTypes", Arrays.asList(assetTypeService.findById(id)));
 		model.addAttribute("assetStatus", Arrays.asList(assetStatusService.findById(id)));
@@ -106,7 +109,6 @@ public class InventoryController
 	@RequestMapping(value = "/inventory/create", method = RequestMethod.POST)
 	public String InventorySave(@ModelAttribute Inventory inventory)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Inventory savedCallForProposals = inventoryService.save(inventory);
 
 		return "redirect:read/" + savedCallForProposals.getId();
@@ -121,7 +123,6 @@ public class InventoryController
 	@RequestMapping("/inventory/edit/{id}")
 	public String InventoryEdit(@PathVariable Long id, Model model, HttpServletRequest request)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		model.addAttribute("assetTypes", assetTypeService.list());
 		model.addAttribute("assetStatus", assetStatusService.list());
@@ -148,7 +149,9 @@ public class InventoryController
 	@RequestMapping("/inventory/read/{id}")
 	public String InventoryRead(@PathVariable Long id, Model model)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(inventoryService.findById(id)==null)
+			return "notfound";
+
 		model.addAttribute("inventories", inventoryService.findById(id));
 		return "inventory/read";
 	}
@@ -161,7 +164,9 @@ public class InventoryController
 	@RequestMapping("/inventory/readsn/{serialNumber}")
 	public String InventoryReadBySerialNumber(@PathVariable String serialNumber, Model model)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(inventoryService.findBySerialNumber(serialNumber)==null)
+			return "notfound";
+
 		model.addAttribute("inventories", inventoryService.findBySerialNumber(serialNumber));
 		return "inventory/read";
 	}	
@@ -197,6 +202,9 @@ public class InventoryController
 	@RequestMapping("/inventory/delete/{id}")
 	public String InventoryDelete(@PathVariable Long id, Model model)
 	{
+		if(inventoryService.findById(id)==null)
+			return "notfound";
+		
 		model.addAttribute("inventories", inventoryService.findById(id));
 		return "inventory/delete";
 	}
@@ -210,6 +218,7 @@ public class InventoryController
 	@RequestMapping("/inventory/deleteconfirmed/{id}")
 	public RedirectView InventoryDeleteConfirmed(@PathVariable Long id, Model model)
 	{
+		
 		inventoryService.delete(id);
 		return new RedirectView("/inventory/main");
 	}

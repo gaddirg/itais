@@ -7,11 +7,8 @@ import org.itais.service.OfficeService;
 import org.itais.service.RoleService;
 import org.itais.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +50,7 @@ public class UserController
 	@RequestMapping("/user/create")
 	public String UserCreate(HttpServletRequest request, Model model)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("offices", officeService.listForSA());
 		model.addAttribute("roles", roleService.list());
 		model.addAttribute("users", new User());
@@ -63,7 +60,9 @@ public class UserController
 	@RequestMapping("/user/create/{id}")
 	public String UserCreateWithPreselectedOffice(Model model,@PathVariable Long id)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(userService.findById(id)==null)
+			return "notfound";
+		
 		model.addAttribute("offices", Arrays.asList(officeService.findById(id)));
 		model.addAttribute("roles", Arrays.asList(roleService.findById(id)));
 		model.addAttribute("users", new User());
@@ -79,7 +78,6 @@ public class UserController
 	@RequestMapping(value = "/user/create", method = RequestMethod.POST)
 	public String UserSave(@ModelAttribute User user)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User saveData = userService.save(user);
 
 		return "redirect:read/" + saveData.getId();
@@ -95,7 +93,8 @@ public class UserController
 	@RequestMapping("/user/edit/{id}")
 	public String UserEdit(@PathVariable Long id, Model model, HttpServletRequest request)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(userService.findById(id)==null)
+			return "notfound";
 		
 		if (request.isUserInRole("ROLE_ADMIN"))	     
 		{
@@ -121,7 +120,9 @@ public class UserController
 	@RequestMapping("/user/read/{id}")
 	public String UserRead(@PathVariable Long id, Model model)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(userService.findById(id)==null)
+			return "notfound";
+		
 		model.addAttribute("users", userService.findById(id));
 		return "user/read";
 	}
@@ -135,7 +136,7 @@ public class UserController
 	@RequestMapping("/user/main")
 	public String UserMain(HttpServletRequest request, Model model)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();	
+			
 		model.addAttribute("users", userService.list());
 		return "user/main";
 	}
@@ -150,6 +151,9 @@ public class UserController
 	@RequestMapping("/user/delete/{id}")
 	public String UserDelete(@PathVariable Long id, Model model)
 	{
+		if(userService.findById(id)==null)
+			return "notfound";
+		
 		model.addAttribute("users", userService.findById(id));
 		return "user/delete";
 	}
