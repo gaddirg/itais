@@ -93,7 +93,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		User uEmail = userRepository.findByEmail(email);
 		if (uEmail == null)
 		{
-			final User admin = new User("admin@company.org","admin","Systems","Administrator",officeRepository.findByName("Head Office"),roleRepository.findByName("ROLE_ADMIN"));
+			final User admin = new User("admin@company.org","admin","Admin","Systems",officeRepository.findByName("Head Office"),roleRepository.findByName("ROLE_ADMIN"));
 			userRepository.save(admin);
 		}
 		return uEmail;

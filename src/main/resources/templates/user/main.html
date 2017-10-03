@@ -57,7 +57,8 @@
 
 						<h2 class="page-header">
 							User Accounts
-							<a href="/user/create" type="button" class="btn btn-default pull-right"><span
+							<a th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}" 
+								href="/user/create" type="button" class="btn btn-default pull-right"><span
 								class="glyphicon glyphicon-pencil" /> Create</a>
 							
 						</h2>

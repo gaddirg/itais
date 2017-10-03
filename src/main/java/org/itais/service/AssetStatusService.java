@@ -3,6 +3,7 @@ package org.itais.service;
 import java.util.List;
 
 import org.itais.domain.AssetStatus;
+import org.itais.domain.AssetType;
 import org.itais.repository.AssetStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,12 @@ public class AssetStatusService
 		return assetStatusRepository.save(new AssetStatus(assetStatus));
 	}
 
+	public AssetStatus save(AssetStatus assetStatus)
+	{
+		return assetStatusRepository.save(assetStatus);
+	}
+	
+	
 	public boolean exists(String assetStatus)
 	{
 		if(assetStatusRepository.findByStatus(assetStatus) == null)
@@ -39,12 +46,17 @@ public class AssetStatusService
 
 	public List<AssetStatus> list()
 	{
-		return assetStatusRepository.findAllByOrderByStatus();
+		return assetStatusRepository.findAll();
 	}
 
 	public AssetStatus findByStatus(String assetStatus)
 	{
 		return assetStatusRepository.findByStatus(assetStatus);
+	}
+	
+	public void delete(Long id)
+	{
+		assetStatusRepository.delete(id);
 	}
     
 }

@@ -85,7 +85,7 @@
 			        	</div>
 		    
 
-						<div class="row">
+						<div class="row" th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}">
 									            
 			            <div class="col-md-6">
 			            	
@@ -109,8 +109,6 @@
 									<canvas id="assetTypeChart" />
 			                    </div>
 			                </div>
-			                
-		                
 			            </div>                      
 						</div>
 

@@ -10,7 +10,7 @@ public interface AssetStatusRepository extends CrudRepository<AssetStatus, Long>
 
 	AssetStatus findByStatus(String status);
 
-	List<AssetStatus> findAllByOrderByStatus();
+	List<AssetStatus> findAll();
 
 	AssetStatus findById(Long id);
 

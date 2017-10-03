@@ -56,7 +56,7 @@
                 <li>
                     <a href="/user/main"><span class="glyphicon glyphicon-user"/> User Accounts</a>
                 </li>
-                <li>
+                <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}">
                     <a href="/options"><span class="glyphicon glyphicon-cog"/> Options</a>
                 </li>
                 <li>
