@@ -19,22 +19,62 @@
 	        			<!-- Page Content -->
 
 						<h2 class="page-header">Upload from CSV</h2>
-						
-						<form method="POST" action="/inventory/upload" enctype="multipart/form-data">
-						    <label class="btn btn-default btn-file">
-    							<input type="file" name="file" accept=".csv" hidden="hidden"/>
-							</label>
-							
-							<br/><br/>
-							<button type="submit" class="btn btn-default">
-								<span class="glyphicon glyphicon-save" /> Upload
-							</button>
-						</form>
-						
-						<div th:if="${message}">
-						    <p th:text="${message}"/>
-						</div>
 
+						<div class="row">
+							<div class="col-md-8">	
+								<div class="panel panel-default panel-body">					
+									<p>You can use the following scripts to extract information from your local computers or computers within your network. </p>
+									  <table class="table table-bordered">
+									    <thead>
+									      <tr>
+									        <th>Operating System</th>
+									        <th>Script</th>
+									        <th>Version</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									      <tr>
+									        <td>Windows OS</td> 
+									        <td><a th:href="@{/downloads/ITAIS_ImportCSV_Script_Win.zip}"
+												class="btn btn-default btn-xs"><span class="glyphicon glyphicon-download-alt"/></a>
+									        	GetInventoryWin.vbs</td>
+									        <td>1.0</td>
+									      </tr>
+									      <tr>
+									        <td>Linux OS</td>
+									        <td>Not yet available</td>
+									        <td></td>
+									      </tr>
+									    </tbody>
+									  </table>
+								</div>	
+								<div class="panel panel-default panel-body">
+									<p>Select CSV file to upload:</p>					
+									<div>
+										<form method="POST" action="/inventory/upload" enctype="multipart/form-data">
+										    <label class="btn btn-default btn-file">
+				    							<input type="file" name="file" accept=".csv" hidden="hidden"/>
+											</label>
+											
+											<br/><br/>
+											<button type="submit" class="btn btn-default">
+												<span class="glyphicon glyphicon-save" /> Upload
+											</button>
+										</form>
+									</div>
+									<br />
+									<div th:if="${message}" class="alert alert-success alert-dismissable fade in">
+										<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+									    <p th:text="${message}"/>
+									</div>
+								</div>	
+							</div>
+						</div>
+						
+						
+						
+						
+						
         				<!-- /#page-content-wrapper -->
                     </div>
                 </div>

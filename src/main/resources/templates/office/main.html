@@ -59,6 +59,7 @@
 										<th>Description</th>									
 										<th>Status</th>
 										<th>Date Created</th>
+										<th>Inventory Count</th>
 									</tr>
 								</thead>									
 								<tbody>
@@ -76,6 +77,7 @@
 										</td>
 										<td th:text="${#calendars.format(office.createdOn,'dd/MM/yyyy')}">
 										</td>
+										<td th:text="${office.inventories.size()}"></td>
 									</tr>
 									
 				
