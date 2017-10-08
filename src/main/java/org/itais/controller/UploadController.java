@@ -74,6 +74,11 @@ public class UploadController {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
+		if (userService.findByEmail(auth.getName()).getOffice()==null) {
+			redirectAttributes.addFlashAttribute("message", "You need to be assigned to an Office Branch to be able to use this funtion.");
+			return "redirect:upload";
+		}		
+		
 		if (file.isEmpty()) {
 			redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
 			return "redirect:upload";
