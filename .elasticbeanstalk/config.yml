@@ -4,6 +4,10 @@ branch-defaults:
     group_suffix: null
 deploy:
   artifact: target/ItaisWebApp-0.0.1-SNAPSHOT.jar
+environment-defaults:
+  ItaisWebApplication-dev:
+    branch: null
+    repository: null
 global:
   application_name: ItaisWebApplication
   branch: null

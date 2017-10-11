@@ -64,7 +64,7 @@ public class UploadController {
 	private Path UPLOADED_FOLDER = Paths.get("temp");
 
 	@GetMapping("/inventory/upload")
-	public String index() {
+	public String fileUpload() {
 		return "/inventory/upload";
 	}
 
